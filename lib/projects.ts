@@ -44,7 +44,7 @@ export const categories: { id: Category; label: string }[] = [
 export const projects: Project[] = [
   {
     slug: "oraculo",
-    name: "Oráculo",
+    name: "Oráculo Sankhya",
     tagline:
       "Chatbot BI que converte perguntas em português em SQL contra o Oracle do Sankhya, usando Claude (Anthropic).",
     description:
@@ -74,7 +74,7 @@ export const projects: Project[] = [
   },
   {
     slug: "programador",
-    name: "Programador",
+    name: "Sankhya OP Scheduler",
     tagline:
       "Webapp para criar e gerenciar Ordens de Produção e Rodadas de lote no Sankhya.",
     description:
@@ -89,7 +89,7 @@ export const projects: Project[] = [
   },
   {
     slug: "producao",
-    name: "Produção",
+    name: "Production Intelligence Suite",
     tagline:
       "Plataforma de inteligência de planejamento e programação de produção integrada ao Sankhya.",
     description:
@@ -119,7 +119,7 @@ export const projects: Project[] = [
   },
   {
     slug: "inplanta",
-    name: "InPLANTA",
+    name: "InPlanta Sales",
     tagline:
       "Força de vendas mobile-first para implantar pedidos diretamente no Sankhya.",
     description:
@@ -158,7 +158,7 @@ export const projects: Project[] = [
   },
   {
     slug: "leadera",
-    name: "LeadEra (Prospecta)",
+    name: "LeadEra",
     tagline:
       "Prospecção automatizada com agentes de IA multi-provider que conversam com leads via WhatsApp.",
     description:
@@ -290,7 +290,7 @@ export const projects: Project[] = [
   },
   {
     slug: "auto-programacao",
-    name: "Auto Programação",
+    name: "Sankhya OP Automator",
     tagline:
       "Robô que cria Ordens de Produção em lote no Sankhya a partir de planejamentos no Oracle.",
     description:
@@ -305,7 +305,7 @@ export const projects: Project[] = [
   },
   {
     slug: "pagina-rastreio",
-    name: "Página Rastreio",
+    name: "Order Tracking Portal",
     tagline:
       "Portal de rastreamento de pedidos para clientes do InPLANTA, autenticação por CPF/CNPJ.",
     description:
@@ -335,7 +335,7 @@ export const projects: Project[] = [
   },
   {
     slug: "migrar-dados",
-    name: "Migrar Dados",
+    name: "Windows Profile Migrator",
     tagline:
       "Utilitário desktop com GUI Tkinter para migrar dados entre perfis de usuário do Windows.",
     description:
