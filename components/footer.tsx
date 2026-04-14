@@ -1,5 +1,3 @@
-import Link from "next/link"
-
 export function Footer() {
   return (
     <footer className="py-8 border-t border-border">
@@ -8,17 +6,9 @@ export function Footer() {
           <p className="text-sm text-muted-foreground">
             © {new Date().getFullYear()} Rohnelt. Todos os direitos reservados.
           </p>
-          <div className="flex items-center gap-4">
-            <Link
-              href="/segredos"
-              className="text-sm text-muted-foreground/40 hover:text-primary font-mono transition-colors"
-            >
-              ./segredos<span className="animate-pulse">_</span>
-            </Link>
-            <p className="text-sm text-muted-foreground">
-              Goiás, Brasil
-            </p>
-          </div>
+          <p className="text-sm text-muted-foreground">
+            Goiás, Brasil
+          </p>
         </div>
       </div>
     </footer>
