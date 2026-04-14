@@ -20,6 +20,8 @@ export type Project = {
   name: string;
   tagline: string;
   description: string;
+  features?: string[];
+  images?: string[];
   stack: string[];
   categories: Category[];
   status: ProjectStatus;
@@ -63,7 +65,26 @@ export const projects: Project[] = [
     tagline:
       "Sistema WMS completo para alocação e realocação de produtos entre endereços de estoque, integrado ao Oracle do Sankhya.",
     description:
-      "Webapp responsivo (mobile-first) para operadores de almoxarifado gerenciarem o posicionamento físico de produtos. Lê e escreve diretamente no Oracle do Sankhya, mantém um cache local em SQLite e oferece interface React + shadcn/ui otimizada para coletores e tablets.",
+      "Webapp responsivo (mobile-first) para operadores de almoxarifado gerenciarem o posicionamento físico de produtos. Lê e escreve diretamente no Oracle do Sankhya, mantém um cache local em SQLite e oferece interface React + shadcn/ui otimizada para coletores e tablets. Gerencia 1.400+ produtos e 500+ endereços com rastreabilidade completa de movimentações.",
+    features: [
+      "Dashboard com KPIs em tempo real: produtos Sankhya, unidades em estoque, endereços cadastrados e movimentações recentes",
+      "Catálogo de produtos com busca por descrição, referência ou código, filtro por grupo e visualização em grid ou lista",
+      "Gestão de endereços de estoque com mapeamento físico (ex: A-1-3), quantidade alocada e controle de ocupação",
+      "Movimentações com 3 operações: Alocar (entrada inicial), Realocar (mover entre endereços) e Remover (saída/baixa)",
+      "Histórico completo de movimentações com filtros por produto, endereço e tipo, além de exportação CSV e opção de desfazer",
+      "Consulta inteligente de estoque com comparativo WMS vs Sankhya e histórico de transferências do último mês",
+      "Módulo de inventário com suporte a 3 contagens, busca por código EAN/referência e leitura via câmera do dispositivo",
+      "Controle de acesso com autenticação por usuário e perfis de administrador",
+    ],
+    images: [
+      "/projects/wms-project/dashboard.png",
+      "/projects/wms-project/produtos.png",
+      "/projects/wms-project/enderecos.png",
+      "/projects/wms-project/movimentacoes.png",
+      "/projects/wms-project/historico.png",
+      "/projects/wms-project/consulta.png",
+      "/projects/wms-project/inventario.png",
+    ],
     stack: ["Flask", "React", "Vite", "Tailwind", "shadcn/ui", "Oracle", "SQLite"],
     categories: ["wms", "sankhya"],
     status: "active",

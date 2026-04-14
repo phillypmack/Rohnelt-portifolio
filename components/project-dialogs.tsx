@@ -1,5 +1,6 @@
 "use client"
 
+import { useState } from "react"
 import {
   Dialog,
   DialogContent,
@@ -9,8 +10,72 @@ import {
 } from "@/components/ui/dialog"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
-import { Github, ExternalLink, AlertTriangle } from "lucide-react"
+import { Github, ExternalLink, AlertTriangle, ChevronLeft, ChevronRight, Check } from "lucide-react"
 import type { Project } from "@/lib/projects"
+
+function ImageCarousel({ images, name }: { images: string[]; name: string }) {
+  const [current, setCurrent] = useState(0)
+
+  return (
+    <div className="space-y-3">
+      <div className="relative aspect-video rounded-lg overflow-hidden border border-border bg-muted">
+        <img
+          src={images[current]}
+          alt={`${name} - Screenshot ${current + 1}`}
+          className="w-full h-full object-contain bg-black/5"
+        />
+        {images.length > 1 && (
+          <>
+            <button
+              onClick={() => setCurrent((p) => (p - 1 + images.length) % images.length)}
+              className="absolute left-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-background/80 backdrop-blur-sm border border-border flex items-center justify-center hover:bg-background transition-colors"
+            >
+              <ChevronLeft className="w-4 h-4" />
+            </button>
+            <button
+              onClick={() => setCurrent((p) => (p + 1) % images.length)}
+              className="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-background/80 backdrop-blur-sm border border-border flex items-center justify-center hover:bg-background transition-colors"
+            >
+              <ChevronRight className="w-4 h-4" />
+            </button>
+            <div className="absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-1.5">
+              {images.map((_, i) => (
+                <button
+                  key={i}
+                  onClick={() => setCurrent(i)}
+                  className={`w-2 h-2 rounded-full transition-colors ${
+                    i === current ? "bg-primary" : "bg-foreground/30"
+                  }`}
+                />
+              ))}
+            </div>
+          </>
+        )}
+      </div>
+      {images.length > 1 && (
+        <div className="flex gap-2 overflow-x-auto pb-1">
+          {images.map((img, i) => (
+            <button
+              key={i}
+              onClick={() => setCurrent(i)}
+              className={`shrink-0 w-16 h-10 rounded border overflow-hidden transition-all ${
+                i === current
+                  ? "border-primary ring-1 ring-primary"
+                  : "border-border opacity-60 hover:opacity-100"
+              }`}
+            >
+              <img
+                src={img}
+                alt={`Thumbnail ${i + 1}`}
+                className="w-full h-full object-cover"
+              />
+            </button>
+          ))}
+        </div>
+      )}
+    </div>
+  )
+}
 
 interface ProjectDetailsDialogProps {
   project: Project | null
@@ -27,7 +92,7 @@ export function ProjectDetailsDialog({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
+      <DialogContent className="max-w-3xl max-h-[90vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle className="text-2xl">{project.name}</DialogTitle>
           <DialogDescription className="text-base">
@@ -45,6 +110,11 @@ export function ProjectDetailsDialog({
             ))}
           </div>
 
+          {/* Images */}
+          {project.images && project.images.length > 0 && (
+            <ImageCarousel images={project.images} name={project.name} />
+          )}
+
           {/* Description */}
           <div>
             <h4 className="font-semibold text-foreground mb-2">Descrição</h4>
@@ -52,6 +122,21 @@ export function ProjectDetailsDialog({
               {project.description}
             </p>
           </div>
+
+          {/* Features */}
+          {project.features && project.features.length > 0 && (
+            <div>
+              <h4 className="font-semibold text-foreground mb-3">Funcionalidades</h4>
+              <ul className="space-y-2">
+                {project.features.map((feature, i) => (
+                  <li key={i} className="flex gap-2 text-sm text-muted-foreground">
+                    <Check className="w-4 h-4 text-primary shrink-0 mt-0.5" />
+                    <span>{feature}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
 
           {/* Stack */}
           <div>
