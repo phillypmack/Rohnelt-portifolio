@@ -336,6 +336,7 @@ export const projects: Project[] = [
     status: "private",
     badges: ["Privado"],
     github: "https://github.com/phillypmack/order-tracking-portal",
+    deploy: "https://rastreio.vasap.com.br/",
     featured: false,
     icon: "map-pin",
   },
