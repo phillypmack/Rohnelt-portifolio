@@ -261,7 +261,7 @@ export const projects: Project[] = [
     status: "public",
     badges: ["Live demo", "IA Powered"],
     github: "https://github.com/phillypmack/cargo-optimizer",
-    deploy: "https://cargo-optimizer-app.vercel.app",
+    deploy: "https://pakgo.com.br/",
     featured: true,
     icon: "package",
   },
