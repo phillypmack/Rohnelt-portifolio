@@ -247,6 +247,7 @@ export const projects: Project[] = [
     status: "public",
     badges: ["Público"],
     github: "https://github.com/phillypmack/hardskills-dtf-generator",
+    deploy: "http://187.77.8.195:8090/",
     featured: false,
     icon: "sticker",
   },
