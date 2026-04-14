@@ -40,16 +40,14 @@ export function Contact() {
               </a>
             </Button>
             <Button size="lg" variant="outline" asChild>
-              {/* TODO: trocar pelo e-mail real */}
-              <a href="mailto:felipe@example.com">
+              <a href="mailto:feliperohneltrds@gmail.com">
                 <Mail className="w-5 h-5 mr-2" />
                 E-mail
               </a>
             </Button>
             <Button size="lg" variant="outline" asChild>
-              {/* TODO: trocar pelo LinkedIn real */}
               <a
-                href="https://linkedin.com/in/phillypmack"
+                href="https://www.linkedin.com/in/felipe-rohnelt-78b240197/"
                 target="_blank"
                 rel="noopener noreferrer"
               >
