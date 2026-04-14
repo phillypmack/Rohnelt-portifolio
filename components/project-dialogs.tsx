@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect, useCallback } from "react"
 import {
   Dialog,
   DialogContent,
@@ -10,70 +10,151 @@ import {
 } from "@/components/ui/dialog"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
-import { Github, ExternalLink, AlertTriangle, ChevronLeft, ChevronRight, Check } from "lucide-react"
+import { Github, ExternalLink, AlertTriangle, ChevronLeft, ChevronRight, Check, X } from "lucide-react"
 import type { Project } from "@/lib/projects"
+
+function Lightbox({
+  images,
+  name,
+  startIndex,
+  onClose,
+}: {
+  images: string[]
+  name: string
+  startIndex: number
+  onClose: () => void
+}) {
+  const [current, setCurrent] = useState(startIndex)
+
+  const prev = useCallback(() => setCurrent((p) => (p - 1 + images.length) % images.length), [images.length])
+  const next = useCallback(() => setCurrent((p) => (p + 1) % images.length), [images.length])
+
+  useEffect(() => {
+    const handleKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose()
+      if (e.key === "ArrowLeft") prev()
+      if (e.key === "ArrowRight") next()
+    }
+    window.addEventListener("keydown", handleKey)
+    return () => window.removeEventListener("keydown", handleKey)
+  }, [onClose, prev, next])
+
+  return (
+    <div className="fixed inset-0 z-[100] bg-black/95 flex items-center justify-center" onClick={onClose}>
+      <button
+        onClick={onClose}
+        className="absolute top-4 right-4 w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-colors z-10"
+      >
+        <X className="w-5 h-5 text-white" />
+      </button>
+
+      <div className="absolute top-4 left-1/2 -translate-x-1/2 text-white/60 text-sm">
+        {current + 1} / {images.length}
+      </div>
+
+      <img
+        src={images[current]}
+        alt={`${name} - Screenshot ${current + 1}`}
+        className="max-w-[95vw] max-h-[90vh] object-contain"
+        onClick={(e) => e.stopPropagation()}
+      />
+
+      {images.length > 1 && (
+        <>
+          <button
+            onClick={(e) => { e.stopPropagation(); prev() }}
+            className="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-colors"
+          >
+            <ChevronLeft className="w-6 h-6 text-white" />
+          </button>
+          <button
+            onClick={(e) => { e.stopPropagation(); next() }}
+            className="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-colors"
+          >
+            <ChevronRight className="w-6 h-6 text-white" />
+          </button>
+        </>
+      )}
+    </div>
+  )
+}
 
 function ImageCarousel({ images, name }: { images: string[]; name: string }) {
   const [current, setCurrent] = useState(0)
+  const [lightboxIndex, setLightboxIndex] = useState<number | null>(null)
 
   return (
-    <div className="space-y-3">
-      <div className="relative aspect-video rounded-lg overflow-hidden border border-border bg-muted">
-        <img
-          src={images[current]}
-          alt={`${name} - Screenshot ${current + 1}`}
-          className="w-full h-full object-contain bg-black/5"
-        />
+    <>
+      <div className="space-y-3">
+        <div
+          className="relative aspect-video rounded-lg overflow-hidden border border-border bg-muted cursor-pointer"
+          onClick={() => setLightboxIndex(current)}
+        >
+          <img
+            src={images[current]}
+            alt={`${name} - Screenshot ${current + 1}`}
+            className="w-full h-full object-contain bg-black/5"
+          />
+          {images.length > 1 && (
+            <>
+              <button
+                onClick={(e) => { e.stopPropagation(); setCurrent((p) => (p - 1 + images.length) % images.length) }}
+                className="absolute left-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-background/80 backdrop-blur-sm border border-border flex items-center justify-center hover:bg-background transition-colors"
+              >
+                <ChevronLeft className="w-4 h-4" />
+              </button>
+              <button
+                onClick={(e) => { e.stopPropagation(); setCurrent((p) => (p + 1) % images.length) }}
+                className="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-background/80 backdrop-blur-sm border border-border flex items-center justify-center hover:bg-background transition-colors"
+              >
+                <ChevronRight className="w-4 h-4" />
+              </button>
+              <div className="absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-1.5">
+                {images.map((_, i) => (
+                  <button
+                    key={i}
+                    onClick={(e) => { e.stopPropagation(); setCurrent(i) }}
+                    className={`w-2 h-2 rounded-full transition-colors ${
+                      i === current ? "bg-primary" : "bg-foreground/30"
+                    }`}
+                  />
+                ))}
+              </div>
+            </>
+          )}
+        </div>
         {images.length > 1 && (
-          <>
-            <button
-              onClick={() => setCurrent((p) => (p - 1 + images.length) % images.length)}
-              className="absolute left-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-background/80 backdrop-blur-sm border border-border flex items-center justify-center hover:bg-background transition-colors"
-            >
-              <ChevronLeft className="w-4 h-4" />
-            </button>
-            <button
-              onClick={() => setCurrent((p) => (p + 1) % images.length)}
-              className="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-background/80 backdrop-blur-sm border border-border flex items-center justify-center hover:bg-background transition-colors"
-            >
-              <ChevronRight className="w-4 h-4" />
-            </button>
-            <div className="absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-1.5">
-              {images.map((_, i) => (
-                <button
-                  key={i}
-                  onClick={() => setCurrent(i)}
-                  className={`w-2 h-2 rounded-full transition-colors ${
-                    i === current ? "bg-primary" : "bg-foreground/30"
-                  }`}
+          <div className="flex gap-2 overflow-x-auto pb-1">
+            {images.map((img, i) => (
+              <button
+                key={i}
+                onClick={() => setCurrent(i)}
+                className={`shrink-0 w-16 h-10 rounded border overflow-hidden transition-all ${
+                  i === current
+                    ? "border-primary ring-1 ring-primary"
+                    : "border-border opacity-60 hover:opacity-100"
+                }`}
+              >
+                <img
+                  src={img}
+                  alt={`Thumbnail ${i + 1}`}
+                  className="w-full h-full object-cover"
                 />
-              ))}
-            </div>
-          </>
+              </button>
+            ))}
+          </div>
         )}
       </div>
-      {images.length > 1 && (
-        <div className="flex gap-2 overflow-x-auto pb-1">
-          {images.map((img, i) => (
-            <button
-              key={i}
-              onClick={() => setCurrent(i)}
-              className={`shrink-0 w-16 h-10 rounded border overflow-hidden transition-all ${
-                i === current
-                  ? "border-primary ring-1 ring-primary"
-                  : "border-border opacity-60 hover:opacity-100"
-              }`}
-            >
-              <img
-                src={img}
-                alt={`Thumbnail ${i + 1}`}
-                className="w-full h-full object-cover"
-              />
-            </button>
-          ))}
-        </div>
+
+      {lightboxIndex !== null && (
+        <Lightbox
+          images={images}
+          name={name}
+          startIndex={lightboxIndex}
+          onClose={() => setLightboxIndex(null)}
+        />
       )}
-    </div>
+    </>
   )
 }
 
