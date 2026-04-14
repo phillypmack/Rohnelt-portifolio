@@ -90,90 +90,101 @@ export function ProjectDetailsDialog({
 }: ProjectDetailsDialogProps) {
   if (!project) return null
 
+  const hasImages = project.images && project.images.length > 0
+
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="w-[80vw] max-w-none max-h-[90vh] overflow-y-auto overflow-x-hidden">
-        <DialogHeader>
-          <DialogTitle className="text-2xl">{project.name}</DialogTitle>
-          <DialogDescription className="text-base">
-            {project.tagline}
-          </DialogDescription>
-        </DialogHeader>
-
-        <div className="space-y-6 mt-4">
-          {/* Badges */}
-          <div className="flex flex-wrap gap-2">
-            {project.badges.map((badge) => (
-              <Badge key={badge} variant="secondary">
-                {badge}
-              </Badge>
-            ))}
-          </div>
-
-          {/* Images */}
-          {project.images && project.images.length > 0 && (
-            <ImageCarousel images={project.images} name={project.name} />
-          )}
-
-          {/* Description */}
-          <div>
-            <h4 className="font-semibold text-foreground mb-2">Descrição</h4>
-            <p className="text-muted-foreground leading-relaxed">
-              {project.description}
-            </p>
-          </div>
-
-          {/* Features */}
-          {project.features && project.features.length > 0 && (
-            <div>
-              <h4 className="font-semibold text-foreground mb-3">Funcionalidades</h4>
-              <ul className="space-y-2">
-                {project.features.map((feature, i) => (
-                  <li key={i} className="flex gap-2 text-sm text-muted-foreground">
-                    <Check className="w-4 h-4 text-primary shrink-0 mt-0.5" />
-                    <span>{feature}</span>
-                  </li>
+      <DialogContent className="w-[80vw] sm:max-w-[80vw] max-h-[90vh] overflow-y-auto p-0">
+        {/* Header */}
+        <div className="sticky top-0 z-10 bg-background/95 backdrop-blur-sm border-b border-border px-6 pt-6 pb-4">
+          <DialogHeader>
+            <div className="flex items-center gap-3 mb-1">
+              <DialogTitle className="text-2xl">{project.name}</DialogTitle>
+              <div className="flex flex-wrap gap-1.5">
+                {project.badges.map((badge) => (
+                  <Badge key={badge} variant="secondary" className="text-xs">
+                    {badge}
+                  </Badge>
                 ))}
-              </ul>
+              </div>
+            </div>
+            <DialogDescription className="text-base">
+              {project.tagline}
+            </DialogDescription>
+          </DialogHeader>
+        </div>
+
+        {/* Body */}
+        <div className={`px-6 pb-6 ${hasImages ? "grid grid-cols-1 lg:grid-cols-2 gap-8" : ""}`}>
+          {/* Left: Images */}
+          {hasImages && (
+            <div className="min-w-0">
+              <ImageCarousel images={project.images!} name={project.name} />
             </div>
           )}
 
-          {/* Stack */}
-          <div>
-            <h4 className="font-semibold text-foreground mb-2">Stack</h4>
-            <div className="flex flex-wrap gap-2">
-              {project.stack.map((tech) => (
-                <Badge key={tech} variant="outline">
-                  {tech}
-                </Badge>
-              ))}
+          {/* Right: Content */}
+          <div className="space-y-6 min-w-0">
+            {/* Description */}
+            <div>
+              <h4 className="font-semibold text-foreground mb-2">Descrição</h4>
+              <p className="text-muted-foreground leading-relaxed text-sm">
+                {project.description}
+              </p>
             </div>
-          </div>
 
-          {/* Actions */}
-          <div className="flex gap-3 pt-4 border-t border-border">
-            <Button asChild>
-              <a
-                href={project.github}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <Github className="w-4 h-4 mr-2" />
-                Ver no GitHub
-              </a>
-            </Button>
-            {project.deploy && (
-              <Button variant="outline" asChild>
+            {/* Features */}
+            {project.features && project.features.length > 0 && (
+              <div>
+                <h4 className="font-semibold text-foreground mb-3">Funcionalidades</h4>
+                <ul className="space-y-2">
+                  {project.features.map((feature, i) => (
+                    <li key={i} className="flex gap-2 text-sm text-muted-foreground">
+                      <Check className="w-4 h-4 text-primary shrink-0 mt-0.5" />
+                      <span>{feature}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+
+            {/* Stack */}
+            <div>
+              <h4 className="font-semibold text-foreground mb-2">Stack</h4>
+              <div className="flex flex-wrap gap-2">
+                {project.stack.map((tech) => (
+                  <Badge key={tech} variant="outline">
+                    {tech}
+                  </Badge>
+                ))}
+              </div>
+            </div>
+
+            {/* Actions */}
+            <div className="flex gap-3 pt-4 border-t border-border">
+              <Button asChild>
                 <a
-                  href={project.deploy}
+                  href={project.github}
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  <ExternalLink className="w-4 h-4 mr-2" />
-                  Abrir site
+                  <Github className="w-4 h-4 mr-2" />
+                  Ver no GitHub
                 </a>
               </Button>
-            )}
+              {project.deploy && (
+                <Button variant="outline" asChild>
+                  <a
+                    href={project.deploy}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <ExternalLink className="w-4 h-4 mr-2" />
+                    Abrir site
+                  </a>
+                </Button>
+              )}
+            </div>
           </div>
         </div>
       </DialogContent>
