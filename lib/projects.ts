@@ -247,6 +247,33 @@ export const projects: Project[] = [
     featured: false,
     icon: "calendar-clock",
   },
+  {
+    slug: "oracle-monitor",
+    name: "Oracle Database Monitor",
+    tagline:
+      "Painel inteligente de monitoramento em tempo real de bancos Oracle com assistente de IA integrado.",
+    description:
+      "Plataforma completa de monitoramento que coleta métricas de performance, sessões, tablespaces, locks, redo logs e system stats de bancos Oracle, apresentando tudo em dashboards interativos com gráficos históricos via Recharts e atualização em tempo real via WebSocket. Inclui assistente de IA (Claude) para análise de métricas e recomendações. Opera em modo somente leitura com connection pool limitado para zero impacto no banco monitorado.",
+    features: [
+      "Dashboard principal com indicadores-chave: sessões ativas, CPU, memória SGA/PGA, tablespaces críticos e alertas recentes",
+      "Monitoramento de sessões: ativas, inativas e em espera, com identificação de consumo de recursos e SQL em execução",
+      "Performance SQL: top queries por tempo de execução, buffer gets e disk reads com texto SQL completo",
+      "Tablespaces: uso de espaço por tablespace com gráficos de pizza/barras e alertas automáticos por threshold",
+      "Detecção de locks e deadlocks em tempo real com árvore de dependência bloqueador/bloqueado",
+      "Redo Logs: monitoramento de log switches, frequência de arquivamento e uso da FRA",
+      "System Stats: wait events, I/O por datafile e hit ratios de cache (buffer, library, dictionary)",
+      "Sistema de alertas com 4 níveis (Info, Atenção, Crítico, Catástrofe), histórico e integração webhook",
+      "Assistente de IA com Claude: análise de métricas, sugestões corretivas, explicação de wait events e recomendações de tuning",
+      "Atualização em tempo real via WebSocket e gráficos históricos com Recharts",
+    ],
+    stack: ["React", "TypeScript", "Tailwind", "Recharts", "Node.js", "Express", "Oracle", "Claude API", "Docker"],
+    categories: ["sankhya", "ia"],
+    status: "production",
+    badges: ["Em produção", "Privado", "IA Powered"],
+    github: "https://github.com/phillypmack/oracle-monitor",
+    featured: true,
+    icon: "activity",
+  },
   // --- SEM PREVIEW NEM IMAGENS ---
   {
     slug: "oraculo",

@@ -4,6 +4,7 @@ import { motion } from "framer-motion"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import {
+  Activity,
   Brain,
   Warehouse,
   CalendarClock,
@@ -31,6 +32,7 @@ import {
 import type { Project } from "@/lib/projects"
 
 const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
+  activity: Activity,
   brain: Brain,
   warehouse: Warehouse,
   "calendar-clock": CalendarClock,
