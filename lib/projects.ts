@@ -210,6 +210,7 @@ export const projects: Project[] = [
     status: "wip",
     badges: ["Em desenvolvimento", "Privado"],
     github: "https://github.com/phillypmack/chaveirogo",
+    deploy: "https://www.chaveirogo.com.br/",
     featured: true,
     icon: "key",
   },
