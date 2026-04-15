@@ -151,3 +151,16 @@
   box-shadow: 0 0 30px oklch(0.65 0.19 230 / 0.3);
   transform: translateY(-2px);
 }
+
+/* Green theme override */
+.theme-green {
+  --primary: oklch(0.65 0.19 145);
+  --accent: oklch(0.65 0.19 145);
+  --ring: oklch(0.65 0.19 145);
+  --chart-1: oklch(0.65 0.19 145);
+  --sidebar-primary: oklch(0.65 0.19 145);
+  --sidebar-ring: oklch(0.65 0.19 145);
+}
+.theme-green .glow-hover:hover {
+  box-shadow: 0 0 30px oklch(0.65 0.19 145 / 0.3);
+}
