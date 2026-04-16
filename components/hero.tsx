@@ -141,7 +141,7 @@ export function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.8 }}
-          className="grid grid-cols-3 gap-8 max-w-xl mx-auto"
+          className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-2xl mx-auto"
         >
           <div className="text-center">
             <div className="text-3xl md:text-4xl font-bold text-primary">
@@ -154,6 +154,12 @@ export function Hero() {
               <AnimatedCounter target={10} suffix="+" />
             </div>
             <div className="text-sm text-muted-foreground mt-1">em produção</div>
+          </div>
+          <div className="text-center">
+            <div className="text-3xl md:text-4xl font-bold text-primary">
+              <AnimatedCounter target={275} suffix="k+" />
+            </div>
+            <div className="text-sm text-muted-foreground mt-1">linhas de código</div>
           </div>
           <div className="text-center">
             <div className="text-3xl md:text-4xl font-bold text-primary">
