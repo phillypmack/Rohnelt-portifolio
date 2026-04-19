@@ -1,0 +1,13 @@
+services:
+  agent:
+    build: .
+    container_name: rohnelt-code-hub-agent
+    restart: unless-stopped
+    environment:
+      - PROJECTS_DIR=/projects
+      - API_URL=${API_URL:-https://rohnelt.dev}
+      - AGENT_TOKEN=${AGENT_TOKEN}
+      - DEBOUNCE_MS=${DEBOUNCE_MS:-30000}
+      - FULL_RESCAN_MS=${FULL_RESCAN_MS:-3600000}
+    volumes:
+      - ${PROJECTS_DIR:-/home/felipe/Documentos}:/projects:ro

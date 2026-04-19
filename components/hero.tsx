@@ -6,6 +6,20 @@ import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { ArrowRight, Github } from "lucide-react"
 import { Typewriter } from "./typewriter"
+import { useLiveStats } from "@/hooks/use-live-stats"
+
+const FALLBACK_STATS = {
+  totalLines: 275000,
+  totalProjects: 45,
+  productionCount: 10,
+  companiesServed: 1,
+  lastSync: new Date(0).toISOString(),
+}
+
+function formatLines(n: number): { target: number; suffix: string } {
+  if (n >= 1000) return { target: Math.round(n / 1000), suffix: "k+" }
+  return { target: n, suffix: "+" }
+}
 
 const techBadges = [
   "Python",
@@ -51,6 +65,9 @@ function AnimatedCounter({ target, suffix = "" }: { target: number; suffix?: str
 }
 
 export function Hero() {
+  const stats = useLiveStats(FALLBACK_STATS)
+  const linesFmt = formatLines(stats.totalLines)
+
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
       {/* Animated grid background */}
@@ -141,23 +158,23 @@ export function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.8 }}
-          className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-2xl mx-auto"
+          className="grid grid-cols-2 md:grid-cols-5 gap-8 max-w-3xl mx-auto"
         >
           <div className="text-center">
             <div className="text-3xl md:text-4xl font-bold text-primary">
-              <AnimatedCounter target={45} suffix="+" />
+              <AnimatedCounter target={stats.totalProjects} suffix="+" />
             </div>
             <div className="text-sm text-muted-foreground mt-1">repositórios</div>
           </div>
           <div className="text-center">
             <div className="text-3xl md:text-4xl font-bold text-primary">
-              <AnimatedCounter target={10} suffix="+" />
+              <AnimatedCounter target={stats.productionCount} suffix="+" />
             </div>
             <div className="text-sm text-muted-foreground mt-1">em produção</div>
           </div>
           <div className="text-center">
             <div className="text-3xl md:text-4xl font-bold text-primary">
-              <AnimatedCounter target={275} suffix="k+" />
+              <AnimatedCounter target={linesFmt.target} suffix={linesFmt.suffix} />
             </div>
             <div className="text-sm text-muted-foreground mt-1">linhas de código</div>
           </div>
@@ -166,6 +183,12 @@ export function Hero() {
               <AnimatedCounter target={5} suffix="+" />
             </div>
             <div className="text-sm text-muted-foreground mt-1">integrações Sankhya</div>
+          </div>
+          <div className="text-center">
+            <div className="text-3xl md:text-4xl font-bold text-primary">
+              <AnimatedCounter target={stats.companiesServed} />
+            </div>
+            <div className="text-sm text-muted-foreground mt-1">empresas atendidas</div>
           </div>
         </motion.div>
       </div>
