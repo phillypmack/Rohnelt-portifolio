@@ -14,6 +14,6 @@ export async function GET() {
       companiesServed: snap.companiesServed,
       lastSync: snap.lastSync,
     },
-    { headers: { "cache-control": "public, max-age=10, s-maxage=10" } }
+    { headers: { "cache-control": "no-store" } }
   );
 }

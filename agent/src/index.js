@@ -5,7 +5,7 @@ import { scanAllProjects } from "./scanner.js";
 const ROOT = process.env.PROJECTS_DIR || "/projects";
 const API_URL = process.env.API_URL;
 const AGENT_TOKEN = process.env.AGENT_TOKEN;
-const DEBOUNCE_MS = parseInt(process.env.DEBOUNCE_MS || "30000", 10);
+const DEBOUNCE_MS = parseInt(process.env.DEBOUNCE_MS || "5000", 10);
 const FULL_RESCAN_MS = parseInt(process.env.FULL_RESCAN_MS || "3600000", 10);
 
 if (!API_URL || !AGENT_TOKEN) {
@@ -93,7 +93,7 @@ async function main() {
     ignoreInitial: true,
     persistent: true,
     depth: 6,
-    awaitWriteFinish: { stabilityThreshold: 2000, pollInterval: 500 },
+    awaitWriteFinish: { stabilityThreshold: 500, pollInterval: 200 },
   });
 
   watcher.on("add", (p) => scheduleSync(`add ${p}`));

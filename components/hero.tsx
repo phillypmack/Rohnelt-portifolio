@@ -9,16 +9,11 @@ import { Typewriter } from "./typewriter"
 import { useLiveStats } from "@/hooks/use-live-stats"
 
 const FALLBACK_STATS = {
-  totalLines: 275000,
-  totalProjects: 45,
-  productionCount: 10,
+  totalLines: 238190,
+  totalProjects: 27,
+  productionCount: 0,
   companiesServed: 1,
   lastSync: new Date(0).toISOString(),
-}
-
-function formatLines(n: number): { target: number; suffix: string } {
-  if (n >= 1000) return { target: Math.round(n / 1000), suffix: "k+" }
-  return { target: n, suffix: "+" }
 }
 
 const techBadges = [
@@ -31,34 +26,50 @@ const techBadges = [
   "IA",
 ]
 
-function AnimatedCounter({ target, suffix = "" }: { target: number; suffix?: string }) {
+function AnimatedCounter({
+  target,
+  suffix = "",
+  separator = false,
+}: {
+  target: number
+  suffix?: string
+  separator?: boolean
+}) {
   const [count, setCount] = useState(0)
+  const countRef = useRef(0)
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true })
 
   useEffect(() => {
     if (!isInView) return
-    let start = 0
+    const start = countRef.current
     const end = target
-    const duration = 2000
+    if (start === end) return
+    const distance = Math.abs(end - start)
+    const duration = Math.min(2000, Math.max(400, distance * 2))
     const startTime = Date.now()
 
     const timer = setInterval(() => {
       const elapsed = Date.now() - startTime
       const progress = Math.min(elapsed / duration, 1)
-      const easeOut = 1 - Math.pow(1 - progress, 3)
-      start = Math.floor(easeOut * end)
-      setCount(start)
-
-      if (progress >= 1) clearInterval(timer)
+      const eased = 1 - Math.pow(1 - progress, 3)
+      const current = Math.floor(start + (end - start) * eased)
+      setCount(current)
+      countRef.current = current
+      if (progress >= 1) {
+        clearInterval(timer)
+        setCount(end)
+        countRef.current = end
+      }
     }, 16)
 
     return () => clearInterval(timer)
   }, [isInView, target])
 
+  const display = separator ? count.toLocaleString("pt-BR") : count
   return (
     <span ref={ref}>
-      {count}
+      {display}
       {suffix}
     </span>
   )
@@ -66,7 +77,6 @@ function AnimatedCounter({ target, suffix = "" }: { target: number; suffix?: str
 
 export function Hero() {
   const stats = useLiveStats(FALLBACK_STATS)
-  const linesFmt = formatLines(stats.totalLines)
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
@@ -174,7 +184,7 @@ export function Hero() {
           </div>
           <div className="text-center">
             <div className="text-3xl md:text-4xl font-bold text-primary">
-              <AnimatedCounter target={linesFmt.target} suffix={linesFmt.suffix} />
+              <AnimatedCounter target={stats.totalLines} separator />
             </div>
             <div className="text-sm text-muted-foreground mt-1">linhas de código</div>
           </div>

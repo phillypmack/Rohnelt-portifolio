@@ -10,7 +10,7 @@ export type LiveStats = {
   lastSync: string;
 };
 
-export function useLiveStats(fallback: LiveStats, intervalMs = 15000) {
+export function useLiveStats(fallback: LiveStats, intervalMs = 5000) {
   const [stats, setStats] = useState<LiveStats>(fallback);
 
   useEffect(() => {
