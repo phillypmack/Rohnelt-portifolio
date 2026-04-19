@@ -19,6 +19,12 @@ export type LiveProject = {
   fileCount: number;
 };
 
+export type LivePresence = {
+  coding: boolean;
+  ide: string | null;
+  lastUpdate: string;
+};
+
 export type LiveSnapshot = {
   projects: LiveProject[];
   totalLines: number;
@@ -26,6 +32,7 @@ export type LiveSnapshot = {
   productionCount: number;
   companiesServed: number;
   lastSync: string;
+  presence: LivePresence;
 };
 
 const EMPTY: LiveSnapshot = {
@@ -35,6 +42,11 @@ const EMPTY: LiveSnapshot = {
   productionCount: 0,
   companiesServed: 0,
   lastSync: new Date(0).toISOString(),
+  presence: {
+    coding: false,
+    ide: null,
+    lastUpdate: new Date(0).toISOString(),
+  },
 };
 
 async function ensureDir() {
@@ -50,8 +62,15 @@ export async function readSnapshot(): Promise<LiveSnapshot> {
   }
 }
 
-export async function writeSnapshot(projects: LiveProject[]): Promise<LiveSnapshot> {
+async function writeAtomic(snapshot: LiveSnapshot): Promise<void> {
   await ensureDir();
+  const tmp = DATA_FILE + ".tmp";
+  await fs.writeFile(tmp, JSON.stringify(snapshot, null, 2), "utf-8");
+  await fs.rename(tmp, DATA_FILE);
+}
+
+export async function writeSnapshot(projects: LiveProject[]): Promise<LiveSnapshot> {
+  const current = await readSnapshot();
   const totalLines = projects.reduce((sum, p) => sum + (p.lines || 0), 0);
   const productionCount = projects.filter((p) => p.status === "production").length;
   const companiesServed = projects
@@ -65,10 +84,20 @@ export async function writeSnapshot(projects: LiveProject[]): Promise<LiveSnapsh
     productionCount,
     companiesServed,
     lastSync: new Date().toISOString(),
+    presence: current.presence,
   };
 
-  const tmp = DATA_FILE + ".tmp";
-  await fs.writeFile(tmp, JSON.stringify(snapshot, null, 2), "utf-8");
-  await fs.rename(tmp, DATA_FILE);
+  await writeAtomic(snapshot);
   return snapshot;
+}
+
+export async function writePresence(coding: boolean, ide: string | null): Promise<LivePresence> {
+  const current = await readSnapshot();
+  const presence: LivePresence = {
+    coding,
+    ide,
+    lastUpdate: new Date().toISOString(),
+  };
+  await writeAtomic({ ...current, presence });
+  return presence;
 }

@@ -7,6 +7,7 @@ import { Badge } from "@/components/ui/badge"
 import { ArrowRight, Github } from "lucide-react"
 import { Typewriter } from "./typewriter"
 import { useLiveStats } from "@/hooks/use-live-stats"
+import { CodingNowBadge } from "./coding-now-badge"
 
 const FALLBACK_STATS = {
   totalLines: 238190,
@@ -14,6 +15,11 @@ const FALLBACK_STATS = {
   productionCount: 0,
   companiesServed: 1,
   lastSync: new Date(0).toISOString(),
+  presence: {
+    coding: false,
+    ide: null,
+    lastUpdate: new Date(0).toISOString(),
+  },
 }
 
 const techBadges = [
@@ -92,6 +98,9 @@ export function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
         >
+          <div className="flex justify-center mb-3 h-7">
+            <CodingNowBadge presence={stats.presence} />
+          </div>
           <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight text-foreground mb-4">
             Rohnelt
           </h1>

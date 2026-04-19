@@ -2,12 +2,19 @@
 
 import { useEffect, useState } from "react";
 
+export type LivePresence = {
+  coding: boolean;
+  ide: string | null;
+  lastUpdate: string;
+};
+
 export type LiveStats = {
   totalLines: number;
   totalProjects: number;
   productionCount: number;
   companiesServed: number;
   lastSync: string;
+  presence: LivePresence;
 };
 
 export function useLiveStats(fallback: LiveStats, intervalMs = 5000) {
@@ -22,7 +29,7 @@ export function useLiveStats(fallback: LiveStats, intervalMs = 5000) {
         if (!res.ok) return;
         const data = (await res.json()) as LiveStats;
         if (cancelled) return;
-        if (data.totalProjects > 0) setStats(data);
+        setStats(data);
       } catch {
         // ignore — keep fallback
       }

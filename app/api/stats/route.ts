@@ -13,6 +13,7 @@ export async function GET() {
       productionCount: snap.productionCount,
       companiesServed: snap.companiesServed,
       lastSync: snap.lastSync,
+      presence: snap.presence,
     },
     { headers: { "cache-control": "no-store" } }
   );
