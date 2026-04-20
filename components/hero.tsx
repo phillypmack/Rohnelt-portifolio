@@ -85,6 +85,9 @@ function AnimatedCounter({
 
 export function Hero() {
   const stats = useLiveStats(FALLBACK_STATS)
+  const [scrambleDone, setScrambleDone] = useState(false)
+  const hiddenState = { opacity: 0, y: 20 }
+  const visibleState = { opacity: 1, y: 0 }
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
@@ -107,9 +110,18 @@ export function Hero() {
             <ScrambleText
               text="Rohnelt"
               style={{ fontFamily: "var(--font-display), ui-sans-serif, system-ui, sans-serif" }}
+              onComplete={() => setScrambleDone(true)}
             />
           </h1>
-          <p className="text-xl md:text-2xl text-primary font-medium mb-6 h-8">
+        </motion.div>
+
+        <motion.p
+          initial={hiddenState}
+          animate={scrambleDone ? visibleState : hiddenState}
+          transition={{ duration: 0.5, delay: 0 }}
+          className="text-xl md:text-2xl text-primary font-medium mb-6 h-8"
+        >
+          {scrambleDone && (
             <Typewriter
               words={[
                 "Engenheiro de Software",
@@ -123,22 +135,22 @@ export function Hero() {
               delayBetweenWords={2000}
               cursor={true}
             />
-          </p>
-        </motion.div>
+          )}
+        </motion.p>
 
         <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
+          initial={hiddenState}
+          animate={scrambleDone ? visibleState : hiddenState}
+          transition={{ duration: 0.5, delay: 0.15 }}
           className="text-muted-foreground text-lg md:text-xl max-w-3xl mx-auto mb-8 text-balance"
         >
           Construo ferramentas que automatizam fábricas, otimizam logística e levam IA para o chão de fábrica.
         </motion.p>
 
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.4 }}
+          initial={hiddenState}
+          animate={scrambleDone ? visibleState : hiddenState}
+          transition={{ duration: 0.5, delay: 0.3 }}
           className="flex flex-wrap justify-center gap-2 mb-10"
         >
           {techBadges.map((tech, index) => (
@@ -154,9 +166,9 @@ export function Hero() {
         </motion.div>
 
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.6 }}
+          initial={hiddenState}
+          animate={scrambleDone ? visibleState : hiddenState}
+          transition={{ duration: 0.5, delay: 0.45 }}
           className="flex flex-col sm:flex-row gap-4 justify-center mb-16"
         >
           <Button size="lg" className="text-base" asChild>
@@ -179,9 +191,9 @@ export function Hero() {
 
         {/* Stats */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.8 }}
+          initial={hiddenState}
+          animate={scrambleDone ? visibleState : hiddenState}
+          transition={{ duration: 0.5, delay: 0.6 }}
           className="grid grid-cols-2 md:grid-cols-5 gap-8 max-w-3xl mx-auto"
         >
           <div className="text-center">

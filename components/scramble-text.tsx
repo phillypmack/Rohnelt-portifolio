@@ -9,9 +9,10 @@ interface ScrambleTextProps {
   className?: string;
   style?: CSSProperties;
   durationMs?: number;
+  onComplete?: () => void;
 }
 
-export function ScrambleText({ text, className, style, durationMs = 1600 }: ScrambleTextProps) {
+export function ScrambleText({ text, className, style, durationMs = 1600, onComplete }: ScrambleTextProps) {
   const [display, setDisplay] = useState(text);
   const rafRef = useRef<number | null>(null);
   const startedRef = useRef(false);
@@ -41,7 +42,10 @@ export function ScrambleText({ text, className, style, durationMs = 1600 }: Scra
         return CHARS[Math.floor(Math.random() * CHARS.length)];
       });
       setDisplay(out.join(""));
-      if (done === targetChars.length) return;
+      if (done === targetChars.length) {
+        onComplete?.();
+        return;
+      }
       rafRef.current = requestAnimationFrame(tick);
     };
 
