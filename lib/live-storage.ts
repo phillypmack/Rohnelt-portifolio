@@ -20,8 +20,9 @@ export type LiveProject = {
 };
 
 export type LivePresence = {
-  coding: boolean;
+  ideRunning: boolean;
   ide: string | null;
+  lastLineChangeAt: string | null;
   lastUpdate: string;
 };
 
@@ -43,8 +44,9 @@ const EMPTY: LiveSnapshot = {
   companiesServed: 0,
   lastSync: new Date(0).toISOString(),
   presence: {
-    coding: false,
+    ideRunning: false,
     ide: null,
+    lastLineChangeAt: null,
     lastUpdate: new Date(0).toISOString(),
   },
 };
@@ -77,6 +79,15 @@ export async function writeSnapshot(projects: LiveProject[]): Promise<LiveSnapsh
     .filter((p) => p.status === "production")
     .reduce((sum, p) => sum + (p.companies || 0), 0);
 
+  const linesChanged =
+    current.totalLines > 0 && totalLines !== current.totalLines;
+  const presence = {
+    ...current.presence,
+    lastLineChangeAt: linesChanged
+      ? new Date().toISOString()
+      : current.presence?.lastLineChangeAt ?? null,
+  };
+
   const snapshot: LiveSnapshot = {
     projects,
     totalLines,
@@ -84,18 +95,23 @@ export async function writeSnapshot(projects: LiveProject[]): Promise<LiveSnapsh
     productionCount,
     companiesServed,
     lastSync: new Date().toISOString(),
-    presence: current.presence,
+    presence,
   };
 
   await writeAtomic(snapshot);
   return snapshot;
 }
 
-export async function writePresence(coding: boolean, ide: string | null): Promise<LivePresence> {
+export async function writePresence(
+  ideRunning: boolean,
+  ide: string | null,
+  lastLineChangeAt: string | null
+): Promise<LivePresence> {
   const current = await readSnapshot();
   const presence: LivePresence = {
-    coding,
+    ideRunning,
     ide,
+    lastLineChangeAt: lastLineChangeAt ?? current.presence?.lastLineChangeAt ?? null,
     lastUpdate: new Date().toISOString(),
   };
   await writeAtomic({ ...current, presence });

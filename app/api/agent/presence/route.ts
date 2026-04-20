@@ -17,15 +17,16 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "unauthorized" }, { status: 401 });
   }
 
-  let body: { coding?: boolean; ide?: string | null };
+  let body: { ideRunning?: boolean; coding?: boolean; ide?: string | null };
   try {
     body = await req.json();
   } catch {
     return NextResponse.json({ error: "invalid json" }, { status: 400 });
   }
 
-  const coding = !!body.coding;
+  // Accept `ideRunning` (new) or `coding` (legacy) from the agent payload
+  const ideRunning = !!(body.ideRunning ?? body.coding);
   const ide = typeof body.ide === "string" ? body.ide : null;
-  const presence = await writePresence(coding, ide);
+  const presence = await writePresence(ideRunning, ide, null);
   return NextResponse.json({ ok: true, presence });
 }

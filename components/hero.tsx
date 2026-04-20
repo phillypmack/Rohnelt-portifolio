@@ -16,8 +16,9 @@ const FALLBACK_STATS = {
   companiesServed: 1,
   lastSync: new Date(0).toISOString(),
   presence: {
-    coding: false,
+    ideRunning: false,
     ide: null,
+    lastLineChangeAt: null,
     lastUpdate: new Date(0).toISOString(),
   },
 }

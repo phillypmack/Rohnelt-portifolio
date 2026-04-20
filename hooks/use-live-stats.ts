@@ -3,8 +3,9 @@
 import { useEffect, useState } from "react";
 
 export type LivePresence = {
-  coding: boolean;
+  ideRunning: boolean;
   ide: string | null;
+  lastLineChangeAt: string | null;
   lastUpdate: string;
 };
 

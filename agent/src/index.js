@@ -72,7 +72,7 @@ function scheduleSync(reason) {
 let lastPresenceState = null;
 let lastPresenceSentAt = 0;
 
-async function sendPresence(coding) {
+async function sendPresence(ideRunning) {
   try {
     const res = await fetch(`${API_URL}/api/agent/presence`, {
       method: "POST",
@@ -80,7 +80,7 @@ async function sendPresence(coding) {
         "content-type": "application/json",
         authorization: `Bearer ${AGENT_TOKEN}`,
       },
-      body: JSON.stringify({ coding, ide: coding ? PRESENCE_PROCESS : null }),
+      body: JSON.stringify({ ideRunning, ide: ideRunning ? PRESENCE_PROCESS : null }),
     });
     if (!res.ok) {
       console.error(`[presence] post failed: ${res.status}`);
