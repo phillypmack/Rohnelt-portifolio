@@ -121,6 +121,9 @@ export async function scanProject(projectPath) {
   };
 }
 
+const MAX_LINES_PER_PROJECT = 500_000;
+const NESTED_ACTIVE_WINDOW_MS = 90 * 24 * 60 * 60 * 1000; // 90 days
+
 export async function scanAllProjects(rootDir) {
   let entries;
   try {
@@ -130,17 +133,74 @@ export async function scanAllProjects(rootDir) {
     return [];
   }
 
+  const slugIndex = new Map(); // slug → { project, path, arrayIndex }
   const projects = [];
+  const addProject = (project, projectPath, { requireRecent = false } = {}) => {
+    if (project.lines > MAX_LINES_PER_PROJECT) {
+      console.warn(`[scanner] skipping ${projectPath}: ${project.lines} lines exceeds ${MAX_LINES_PER_PROJECT} (likely contains dependencies)`);
+      return;
+    }
+    if (requireRecent) {
+      const ageMs = Date.now() - new Date(project.lastModified).getTime();
+      if (ageMs > NESTED_ACTIVE_WINDOW_MS) return;
+    }
+    const existing = slugIndex.get(project.slug);
+    if (existing) {
+      // Prefer the copy modified more recently (the one the user actually works on)
+      const newTs = new Date(project.lastModified).getTime();
+      const oldTs = new Date(existing.project.lastModified).getTime();
+      if (newTs > oldTs) {
+        console.warn(`[scanner] slug "${project.slug}": replacing ${existing.path} with more recent ${projectPath}`);
+        projects[existing.arrayIndex] = project;
+        slugIndex.set(project.slug, { project, path: projectPath, arrayIndex: existing.arrayIndex });
+      } else {
+        console.warn(`[scanner] slug "${project.slug}": keeping ${existing.path}, skipping older ${projectPath}`);
+      }
+      return;
+    }
+    const arrayIndex = projects.push(project) - 1;
+    slugIndex.set(project.slug, { project, path: projectPath, arrayIndex });
+  };
+  // Pass 1 — top-level git repos (authoritative; they win slug collisions)
+  const nestedCandidates = [];
   for (const entry of entries) {
     if (!entry.isDirectory()) continue;
     if (entry.name.startsWith(".")) continue;
     const projectPath = path.join(rootDir, entry.name);
     try {
       const project = await scanProject(projectPath);
-      if (project) projects.push(project);
+      if (project) {
+        addProject(project, projectPath);
+      } else {
+        nestedCandidates.push({ entry, projectPath });
+      }
     } catch (err) {
       console.error(`[scanner] error scanning ${entry.name}:`, err.message);
     }
   }
+
+  // Pass 2 — look one level deeper inside non-git folders.
+  // Only include nested repos that have been modified in the last 90 days,
+  // so old archived experiments don't pollute the portfolio.
+  for (const { entry, projectPath } of nestedCandidates) {
+    let children;
+    try {
+      children = await fs.readdir(projectPath, { withFileTypes: true });
+    } catch {
+      continue;
+    }
+    for (const child of children) {
+      if (!child.isDirectory()) continue;
+      if (child.name.startsWith(".")) continue;
+      const childPath = path.join(projectPath, child.name);
+      try {
+        const nested = await scanProject(childPath);
+        if (nested) addProject(nested, childPath, { requireRecent: true });
+      } catch (err) {
+        console.error(`[scanner] error scanning ${entry.name}/${child.name}:`, err.message);
+      }
+    }
+  }
+
   return projects;
 }
