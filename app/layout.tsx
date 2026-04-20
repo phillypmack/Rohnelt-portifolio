@@ -1,13 +1,13 @@
 import type { Metadata } from 'next'
-import { Geist, Geist_Mono, Space_Grotesk } from 'next/font/google'
+import { Geist, Geist_Mono, Orbitron } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import './globals.css'
 
 const _geist = Geist({ subsets: ["latin"] });
 const _geistMono = Geist_Mono({ subsets: ["latin"] });
-const spaceGrotesk = Space_Grotesk({
+const displayFont = Orbitron({
   subsets: ["latin"],
-  weight: ["500", "600", "700"],
+  weight: ["500", "700", "900"],
   variable: "--font-display",
 });
 
@@ -40,7 +40,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="pt-BR" className={`dark ${spaceGrotesk.variable}`}>
+    <html lang="pt-BR" className={`dark ${displayFont.variable}`}>
       <body className="font-sans antialiased">
         {children}
         {process.env.NODE_ENV === 'production' && <Analytics />}
