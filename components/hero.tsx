@@ -8,6 +8,7 @@ import { ArrowRight, Github } from "lucide-react"
 import { Typewriter } from "./typewriter"
 import { useLiveStats } from "@/hooks/use-live-stats"
 import { CodingNowBadge } from "./coding-now-badge"
+import { ScrambleText } from "./scramble-text"
 
 const FALLBACK_STATS = {
   totalLines: 238190,
@@ -102,15 +103,10 @@ export function Hero() {
           <div className="flex justify-center mb-3 h-7">
             <CodingNowBadge presence={stats.presence} />
           </div>
-          <h1
-            className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tighter text-foreground mb-4"
-            style={{ fontFamily: "var(--font-display), ui-sans-serif, system-ui, sans-serif" }}
-          >
-            Rohnelt
-            <span
-              aria-hidden
-              className="animate-caret-blink ml-2 inline-block align-[-0.1em] bg-primary"
-              style={{ width: "0.12em", height: "0.9em" }}
+          <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tighter text-foreground mb-4">
+            <ScrambleText
+              text="Rohnelt"
+              style={{ fontFamily: "var(--font-display), ui-sans-serif, system-ui, sans-serif" }}
             />
           </h1>
           <p className="text-xl md:text-2xl text-primary font-medium mb-6 h-8">
