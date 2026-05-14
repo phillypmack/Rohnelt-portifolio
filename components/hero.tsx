@@ -194,7 +194,7 @@ export function Hero() {
           initial={hiddenState}
           animate={scrambleDone ? visibleState : hiddenState}
           transition={{ duration: 0.5, delay: 0.6 }}
-          className="grid grid-cols-2 md:grid-cols-5 gap-8 max-w-3xl mx-auto"
+          className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-2xl mx-auto"
         >
           <div className="text-center">
             <div className="text-3xl md:text-4xl font-bold text-primary">
@@ -219,12 +219,6 @@ export function Hero() {
               <AnimatedCounter target={5} suffix="+" />
             </div>
             <div className="text-sm text-muted-foreground mt-1">integrações Sankhya</div>
-          </div>
-          <div className="text-center">
-            <div className="text-3xl md:text-4xl font-bold text-primary">
-              <AnimatedCounter target={stats.companiesServed} />
-            </div>
-            <div className="text-sm text-muted-foreground mt-1">empresas atendidas</div>
           </div>
         </motion.div>
       </div>
