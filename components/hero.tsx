@@ -34,6 +34,18 @@ const techBadges = [
   "IA",
 ]
 
+const DEFAULT_TYPEWRITER = [
+  "Engenheiro de Software",
+  "Arquiteto de I.A.",
+  "Especialista em Automação Industrial",
+  "Desenvolvedor Full Stack",
+  "Integrador ERP Sankhya",
+  "Engenheiro de Prompt",
+]
+
+const DEFAULT_DESCRIPTION =
+  "Construo ferramentas que automatizam fábricas, otimizam logística e levam IA para o chão de fábrica."
+
 function AnimatedCounter({
   target,
   suffix = "",
@@ -86,7 +98,16 @@ function AnimatedCounter({
 export function Hero({
   displayName = "Rohnelt",
   scrambleCharset,
-}: { displayName?: string; scrambleCharset?: string } = {}) {
+  typewriterWords = DEFAULT_TYPEWRITER,
+  description = DEFAULT_DESCRIPTION,
+  techBadges: badges = techBadges,
+}: {
+  displayName?: string
+  scrambleCharset?: string
+  typewriterWords?: string[]
+  description?: string
+  techBadges?: string[]
+} = {}) {
   const stats = useLiveStats(FALLBACK_STATS)
   const [scrambleDone, setScrambleDone] = useState(false)
   const hiddenState = { opacity: 0, y: 20 }
@@ -128,14 +149,7 @@ export function Hero({
         >
           {scrambleDone && (
             <Typewriter
-              words={[
-                "Engenheiro de Software",
-                "Arquiteto de I.A.",
-                "Especialista em Automação Industrial",
-                "Desenvolvedor Full Stack",
-                "Integrador ERP Sankhya",
-                "Engenheiro de Prompt",
-              ]}
+              words={typewriterWords}
               speed={80}
               delayBetweenWords={2000}
               cursor={true}
@@ -149,7 +163,7 @@ export function Hero({
           transition={{ duration: 0.5, delay: 0.15 }}
           className="text-muted-foreground text-lg md:text-xl max-w-3xl mx-auto mb-8 text-balance"
         >
-          Construo ferramentas que automatizam fábricas, otimizam logística e levam IA para o chão de fábrica.
+          {description}
         </motion.p>
 
         <motion.div
@@ -158,7 +172,7 @@ export function Hero({
           transition={{ duration: 0.5, delay: 0.3 }}
           className="flex flex-wrap justify-center gap-2 mb-10"
         >
-          {techBadges.map((tech, index) => (
+          {badges.map((tech, index) => (
             <Badge
               key={tech}
               variant="outline"

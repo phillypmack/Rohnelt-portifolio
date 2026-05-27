@@ -18,10 +18,10 @@ export function SecretProjects() {
         >
           <h2 className="text-3xl md:text-4xl font-bold mb-4 text-foreground inline-flex items-center gap-3">
             <Terminal className="w-8 h-8 text-primary" />
-            Criações secretas
+            ./classified
           </h2>
-          <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-            O que não está no portfólio público.
+          <p className="text-muted-foreground text-lg max-w-2xl mx-auto font-mono">
+            <span className="text-primary">$</span> sudo cat /var/log/.unauthorized
           </p>
         </motion.div>
 
@@ -35,14 +35,13 @@ export function SecretProjects() {
           >
             <Lock className="w-12 h-12 text-primary mx-auto mb-4" />
             <p className="text-foreground/80">
-              <span className="text-primary">$</span> ls -la ~/secret
+              <span className="text-primary">$</span> ls -la ~/.classified/
             </p>
             <p className="text-muted-foreground text-sm mt-2">
-              total 0 — vazio por enquanto
+              drwx------ 1 rohnelt root 0 — diretório criptografado, payload pendente
             </p>
-            <p className="text-muted-foreground/60 text-xs mt-6">
-              Adicione projetos editando{" "}
-              <code className="text-primary">lib/secret-projects.ts</code>
+            <p className="text-muted-foreground/60 text-xs mt-6 font-mono">
+              # destrancar via <code className="text-primary">lib/secret-projects.ts</code>
             </p>
           </motion.div>
         ) : (
