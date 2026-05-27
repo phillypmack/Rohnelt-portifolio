@@ -5,7 +5,7 @@ import { SecretProjects } from "@/components/secret-projects";
 import { Footer } from "@/components/footer";
 
 export const metadata: Metadata = {
-  title: "Tlenhor",
+  title: "ЯОНПЗЛТ",
   description: "",
   robots: {
     index: false,
@@ -19,7 +19,10 @@ export default function Sombra() {
   return (
     <main className="theme-red min-h-screen bg-background relative">
       <Navigation />
-      <Hero displayName="Tlenhor" />
+      <Hero
+        displayName="ЯОНПЗЛТ"
+        scrambleCharset="АБВГДЕЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯЁ0123456789@#$%&*<>{}[]/?"
+      />
       <SecretProjects />
       <Footer />
     </main>

@@ -83,7 +83,10 @@ function AnimatedCounter({
   )
 }
 
-export function Hero({ displayName = "Rohnelt" }: { displayName?: string } = {}) {
+export function Hero({
+  displayName = "Rohnelt",
+  scrambleCharset,
+}: { displayName?: string; scrambleCharset?: string } = {}) {
   const stats = useLiveStats(FALLBACK_STATS)
   const [scrambleDone, setScrambleDone] = useState(false)
   const hiddenState = { opacity: 0, y: 20 }
@@ -110,6 +113,7 @@ export function Hero({ displayName = "Rohnelt" }: { displayName?: string } = {})
             <ScrambleText
               key={displayName}
               text={displayName}
+              charset={scrambleCharset}
               style={{ fontFamily: "var(--font-display), ui-sans-serif, system-ui, sans-serif" }}
               onComplete={() => setScrambleDone(true)}
             />

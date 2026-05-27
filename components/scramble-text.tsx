@@ -2,17 +2,26 @@
 
 import { useEffect, useRef, useState, type CSSProperties } from "react";
 
-const CHARS = "!<>-_\\/[]{}=+*^?#ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@$%&";
+const DEFAULT_CHARS = "!<>-_\\/[]{}=+*^?#ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@$%&";
 
 interface ScrambleTextProps {
   text: string;
   className?: string;
   style?: CSSProperties;
   durationMs?: number;
+  charset?: string;
   onComplete?: () => void;
 }
 
-export function ScrambleText({ text, className, style, durationMs = 1600, onComplete }: ScrambleTextProps) {
+export function ScrambleText({
+  text,
+  className,
+  style,
+  durationMs = 1600,
+  charset = DEFAULT_CHARS,
+  onComplete,
+}: ScrambleTextProps) {
+  const CHARS = charset;
   const [display, setDisplay] = useState(text);
   const rafRef = useRef<number | null>(null);
   const startedRef = useRef(false);

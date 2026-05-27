@@ -20,7 +20,7 @@ export function Navigation() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const pathname = usePathname()
   const isSecret = pathname === "/sombra"
-  const logoLabel = isSecret ? "Tlenhor" : "Rohnelt"
+  const logoLabel = isSecret ? "ЯОНПЗЛТ" : "Rohnelt"
   const logoHref = isSecret ? "/" : "/sombra"
 
   useEffect(() => {
