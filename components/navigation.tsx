@@ -2,6 +2,8 @@
 
 import { useState, useEffect } from "react"
 import { motion } from "framer-motion"
+import { usePathname } from "next/navigation"
+import Link from "next/link"
 import { Menu, X, Github } from "lucide-react"
 import { Button } from "@/components/ui/button"
 
@@ -16,6 +18,10 @@ const links = [
 export function Navigation() {
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  const pathname = usePathname()
+  const isSecret = pathname === "/sombra"
+  const logoLabel = isSecret ? "Tlenhor" : "Rohnelt"
+  const logoHref = isSecret ? "/" : "/sombra"
 
   useEffect(() => {
     const handleScroll = () => {
@@ -37,9 +43,14 @@ export function Navigation() {
       }`}
     >
       <nav className="container mx-auto px-6 h-16 flex items-center justify-between">
-        <a href="#" className="text-xl font-bold text-foreground">
-          Rohnelt
-        </a>
+        <Link
+          href={logoHref}
+          prefetch={false}
+          aria-label={isSecret ? "Voltar para o site principal" : undefined}
+          className="text-xl font-bold text-foreground hover:text-primary transition-colors"
+        >
+          {logoLabel}
+        </Link>
 
         {/* Desktop menu */}
         <div className="hidden md:flex items-center gap-8">

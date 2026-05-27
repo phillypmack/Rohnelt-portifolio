@@ -173,3 +173,58 @@
 .theme-green .glow-hover:hover {
   box-shadow: 0 0 30px oklch(0.65 0.19 145 / 0.3);
 }
+
+/* Red/hacker secret theme */
+.theme-red {
+  --background: oklch(0.06 0.03 25);
+  --foreground: oklch(0.92 0.05 25);
+  --card: oklch(0.10 0.04 25);
+  --card-foreground: oklch(0.92 0.05 25);
+  --popover: oklch(0.10 0.04 25);
+  --popover-foreground: oklch(0.92 0.05 25);
+  --primary: oklch(0.60 0.25 25);
+  --primary-foreground: oklch(0.98 0 0);
+  --secondary: oklch(0.15 0.05 25);
+  --secondary-foreground: oklch(0.92 0.05 25);
+  --muted: oklch(0.15 0.04 25);
+  --muted-foreground: oklch(0.65 0.12 25);
+  --accent: oklch(0.60 0.25 25);
+  --accent-foreground: oklch(0.98 0 0);
+  --border: oklch(0.25 0.08 25);
+  --input: oklch(0.15 0.04 25);
+  --ring: oklch(0.60 0.25 25);
+  --chart-1: oklch(0.60 0.25 25);
+  --sidebar-primary: oklch(0.60 0.25 25);
+  --sidebar-ring: oklch(0.60 0.25 25);
+}
+.theme-red .glow-hover:hover {
+  box-shadow: 0 0 30px oklch(0.60 0.25 25 / 0.4);
+}
+
+/* Scanline overlay for the secret theme */
+.theme-red::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 100;
+  background: repeating-linear-gradient(
+    to bottom,
+    transparent 0,
+    transparent 2px,
+    oklch(0 0 0 / 0.18) 2px,
+    oklch(0 0 0 / 0.18) 3px
+  );
+  mix-blend-mode: multiply;
+}
+
+@keyframes red-flicker {
+  0%, 100% { opacity: 1; }
+  92% { opacity: 0.97; }
+  94% { opacity: 1; }
+  96% { opacity: 0.94; }
+  98% { opacity: 1; }
+}
+.theme-red {
+  animation: red-flicker 6s infinite;
+}
