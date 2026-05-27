@@ -6,7 +6,7 @@ RUN corepack enable pnpm
 FROM base AS deps
 WORKDIR /app
 COPY package.json pnpm-lock.yaml ./
-RUN pnpm install --no-frozen-lockfile --config.confirmModulesPurge=false
+RUN pnpm install --frozen-lockfile
 
 # --- Build ---
 FROM base AS builder
