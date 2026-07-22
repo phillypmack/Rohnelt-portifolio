@@ -243,16 +243,18 @@ export function ProjectDetailsDialog({
 
             {/* Actions */}
             <div className="flex gap-3 pt-4 border-t border-border">
-              <Button asChild>
-                <a
-                  href={project.github}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <Github className="w-4 h-4 mr-2" />
-                  Ver no GitHub
-                </a>
-              </Button>
+              {project.github && (
+                <Button asChild>
+                  <a
+                    href={project.github}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <Github className="w-4 h-4 mr-2" />
+                    Ver no GitHub
+                  </a>
+                </Button>
+              )}
               {project.deploy && (
                 <Button variant="outline" asChild>
                   <a

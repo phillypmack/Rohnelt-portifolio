@@ -6,7 +6,9 @@ export type Category =
   | "ia"
   | "produto"
   | "ar"
-  | "iot";
+  | "iot"
+  | "games"
+  | "edu";
 
 export type ProjectStatus =
   | "production"
@@ -26,7 +28,7 @@ export type Project = {
   categories: Category[];
   status: ProjectStatus;
   badges: string[];
-  github: string;
+  github?: string;
   deploy?: string;
   featured: boolean;
   icon: string;
@@ -41,10 +43,47 @@ export const categories: { id: Category; label: string }[] = [
   { id: "produto", label: "Produto / SaaS" },
   { id: "ar", label: "AR / 3D" },
   { id: "iot", label: "IoT / Mobile" },
+  { id: "games", label: "Games" },
+  { id: "edu", label: "Educação" },
 ];
 
 export const projects: Project[] = [
   // --- COM PREVIEW (deploy) ---
+  {
+    slug: "warzil",
+    name: "WARZIL",
+    tagline:
+      "Jogo multiplayer de conquista de território em tempo real sobre o mapa real dos municípios do Brasil.",
+    description:
+      "Jogo web (PWA) estilo WAR/Risk jogado sobre o grafo de adjacência real dos municípios do IBGE, com simulação contínua server-authoritative (sem tick). Motor determinístico de regras puras — renda por segundo, marcha por aresta, atrito, suprimento e respawn — validado por invariantes e harness headless. Escala horizontal com pool de workers de simulação (lease de escritor único + failover) e eleição de líder na API. Inclui port desktop para Windows/Steam via Electron + Steamworks.",
+    features: [
+      "Simulação contínua em tempo real server-authoritative, sem tick, com motor determinístico validado por invariantes",
+      "Mapa real dos municípios do Brasil (grafo de adjacência do IBGE) renderizado com MapLibre GL",
+      "Forças especializadas e ataques à distância: tanques, aviões, caças, morteiros, mísseis, ogivas nucleares e antiaérea",
+      "Matchmaking FIFO com degradação suave, bots de treino solo, temporadas com rating Glicko-2 e leaderboards",
+      "Estado vivo em Redis (ZSET, pub/sub, leases) e persistência PostgreSQL + PostGIS via Drizzle",
+      "Port desktop Windows/Steam (Electron + Steamworks): overlay, rich presence, conquistas e Steam Cloud",
+    ],
+    stack: [
+      "TypeScript",
+      "React",
+      "MapLibre GL",
+      "Fastify",
+      "PostgreSQL",
+      "PostGIS",
+      "Redis",
+      "SSE",
+      "Electron",
+      "Steamworks",
+    ],
+    categories: ["games", "produto"],
+    status: "active",
+    badges: ["Live demo", "Multiplayer"],
+    github: "https://github.com/phillypmack/WARZIL",
+    deploy: "https://warzil.com",
+    featured: true,
+    icon: "swords",
+  },
   {
     slug: "chaveirogo",
     name: "ChaveiroGO",
@@ -468,9 +507,300 @@ export const projects: Project[] = [
     featured: false,
     icon: "folder-sync",
   },
+  // --- LOGÍSTICA / TMS ---
+  {
+    slug: "transporta",
+    name: "Transporta",
+    tagline:
+      "TMS de gestão e auditoria de fretes integrado ao Sankhya: cota transportadoras, grava a escolha no pedido e concilia cotado × cobrado via CT-e.",
+    description:
+      "Sistema de gestão de transporte (TMS) que faz cotação paralela em múltiplas transportadoras (APIs Jamef e Rodonaves + tabelas de frete genéricas), congela a escolhida em snapshot, grava transportadora e valor do frete de volta no pedido do Sankhya (CODPARCTRANSP + VLRFRETE) e audita o CT-e cobrado contra o cotado, com badges de divergência e export CSV. Telas de Pedidos, Cotação, Auditoria, Tabelas de Frete (faixas CEP × peso, GRIS, pedágio, cubagem) e dashboard de KPIs, com credenciais de transportadoras criptografadas.",
+    stack: ["Python", "FastAPI", "SQLAlchemy", "PostgreSQL", "React", "Vite", "Docker"],
+    categories: ["sankhya", "wms"],
+    status: "wip",
+    badges: ["Em desenvolvimento", "Privado"],
+    github: "https://github.com/phillypmack/transporta",
+    featured: true,
+    icon: "truck",
+  },
+  {
+    slug: "container-loader",
+    name: "Container Loader 3D",
+    tagline:
+      "SaaS de planejamento de carga com visualização 3D do contêiner e algoritmo de packing em worker.",
+    description:
+      "Aplicação SaaS que calcula e exibe o carregamento de contêineres em 3D (three.js / react-three-fiber), com algoritmo de bin-packing executado em worker, autenticação, assinaturas via Stripe e exportação do plano de carga em PDF.",
+    stack: ["Next.js 16", "React 19", "three.js", "Prisma", "PostgreSQL", "Stripe", "Redis"],
+    categories: ["wms", "ar", "produto"],
+    status: "wip",
+    badges: ["Em desenvolvimento", "Privado"],
+    featured: false,
+    icon: "container",
+  },
+  {
+    slug: "cargo-optimizer-v2",
+    name: "Cargo Optimizer Engine v2",
+    tagline:
+      "Solver determinístico de bin-packing 3D que posiciona caixas e cilindros respeitando gravidade, fragilidade e empilhamento.",
+    description:
+      "Motor de empacotamento 3D em TypeScript puro, sem dependências de runtime: algoritmo extreme-point greedy com scoring multi-rotação e poda espacial por índice ordenado, modo multi-pass com N ordenações de prioridade e determinismo total (sem RNG). Validador independente checa 9 restrições físicas (gravidade, fragilidade, empilhamento, peso, rotações), com CLI, suíte de benchmarks e testes de regressão. Sucessor determinístico do Cargo Optimizer original baseado em IA.",
+    stack: ["TypeScript", "Node.js"],
+    categories: ["wms"],
+    status: "wip",
+    badges: ["Em desenvolvimento"],
+    featured: false,
+    icon: "package-check",
+  },
+  // --- SANKHYA / VASAP ---
+  {
+    slug: "vasap-vision",
+    name: "Vasap Vision",
+    tagline:
+      "Visão computacional industrial: OEE de rotomoldagem por câmeras IP e auditoria de transferências em esteira com YOLO/ONNX.",
+    description:
+      "Plataforma de visão computacional com dois subsistemas: monitoramento OEE de máquinas de rotomoldagem em tempo real via câmeras IP (captura RTSP multi-thread, inferência ONNX, smoothing temporal por state machine) e esteira de transferências integrada ao sistema de apontamento — captura por bipagem, revisão humana OK/divergente e montagem de dataset rotulado para futura detecção automática de divergências. Integração com Oracle/Sankhya com fila offline SQLite, editor de ROI no frontend, alertas via WhatsApp (Evolution API) e deploy com systemd/nginx.",
+    stack: ["Python", "FastAPI", "ONNX Runtime", "YOLO", "OpenCV", "React", "TypeScript", "Oracle", "SQLite"],
+    categories: ["ia", "producao"],
+    status: "wip",
+    badges: ["Em desenvolvimento", "Privado", "IA Powered"],
+    github: "https://github.com/phillypmack/vasap-vision",
+    featured: true,
+    icon: "scan-eye",
+  },
+  {
+    slug: "hub-ml",
+    name: "HUB ML",
+    tagline:
+      "Hub de integração bidirecional entre o Mercado Livre e o ERP Sankhya: pedidos entram, faturamento e despacho voltam.",
+    description:
+      "Middleware que recebe webhooks orders_v2 do Mercado Livre, enfileira o processamento em BullMQ e cria o pedido no Sankhya via CACSP.incluirNota com controle de idempotência e mapeamento SKU → CODPROD. No sentido inverso, um polling detecta a NF-e emitida (CHAVENFE na TGFCAB) e notifica o despacho de volta ao Mercado Livre. Trata cancelamentos e mantém tabelas de controle no Oracle.",
+    stack: ["Node.js", "TypeScript", "Express", "BullMQ", "Redis", "Oracle"],
+    categories: ["sankhya", "produto"],
+    status: "wip",
+    badges: ["Em desenvolvimento", "Privado"],
+    featured: false,
+    icon: "store",
+  },
+  {
+    slug: "confere",
+    name: "Confere",
+    tagline:
+      "App WMS mobile com os 5 fluxos de expedição: separação, conferência, embalagem, packing e expedição.",
+    description:
+      "Webapp mobile que implementa os cinco fluxos de expedição de um WMS — separação, conferência, embalagem, packing e expedição/ordens de carga — com scanner de código de barras via câmera (ZXing), autenticação via Sankhya MobileLoginSP e backend FastAPI. Reutiliza o design system industrial dos sistemas Vasap.",
+    stack: ["Python", "FastAPI", "JavaScript", "ZXing", "Docker", "Nginx"],
+    categories: ["wms", "sankhya"],
+    status: "wip",
+    badges: ["Em desenvolvimento", "Privado"],
+    github: "https://github.com/phillypmack/confere",
+    featured: false,
+    icon: "scan-barcode",
+  },
+  {
+    slug: "conselho-vasap",
+    name: "Conselho Vasap",
+    tagline:
+      "Conselho multi-agente de LLMs com personas de objetivos conflitantes que debatem diagnósticos do processo produtivo.",
+    description:
+      "Ferramenta que coleta snapshots read-only do processo produtivo (Oracle via gateway, SQLite, Postgres) e orquestra um \"conselho\" de personas de IA definidas em YAML — cada uma com objetivos conflitantes — num debate multi-rodada serializável, produzindo diagnóstico acionável e baseado em evidência sobre atrasos na liberação de pedidos, com relatório final em Markdown/JSON e citações à base de conhecimento.",
+    stack: ["Python", "Anthropic SDK", "Ollama", "Typer", "Streamlit", "PostgreSQL"],
+    categories: ["ia", "producao"],
+    status: "active",
+    badges: ["Privado", "IA Powered"],
+    featured: false,
+    icon: "users",
+  },
+  {
+    slug: "vasap-bi-dashboards",
+    name: "Vasap BI Dashboards",
+    tagline:
+      "Suíte de geradores Python de dashboards HTML5 auto-contidos para o Construtor de Painéis do Sankhya.",
+    description:
+      "Cerca de 10 geradores que consultam o Oracle do Sankhya e produzem dashboards HTML/Chart.js auto-contidos, empacotados em .zip prontos para upload no Construtor de Painéis: representatividade do faturamento (pivot produto × mês com curva ABC/Pareto, heatmap, Top-N e export CSV), carteira, custo, custo produzido, balanço de estoque, resultado contábil, produção por grupo, rastreabilidade e transferências. Modo dual: snapshot local no navegador ou consulta ao vivo via DbExplorerSP dentro do próprio Sankhya.",
+    stack: ["Python", "Oracle", "Chart.js", "HTML5"],
+    categories: ["sankhya"],
+    status: "production",
+    badges: ["Em produção", "Privado"],
+    featured: false,
+    icon: "pie-chart",
+  },
+  {
+    slug: "sankhya-log-forensics",
+    name: "Sankhya Log Forensics",
+    tagline:
+      "Kit de análise forense que transforma gigabytes de server.log do Sankhya em diagnósticos acionáveis.",
+    description:
+      "Metodologia em 7 fases — reconhecimento, triagem por severidade, top N de exceções e erros ORA-, distribuição temporal, agrupamento por procedure, detecção de retry storms e separação sinal × ruído — automatizada em Python para analisar logs de múltiplos gigabytes do JBoss/WildFly do Sankhya. Descarta ruído conhecido do ERP e gera relatórios diários e de tendência em Markdown, HTML e PDF, com histórico de diagnósticos versionado por data.",
+    stack: ["Python", "Oracle", "JBoss/WildFly"],
+    categories: ["sankhya"],
+    status: "active",
+    badges: ["Privado", "Ativo"],
+    featured: false,
+    icon: "file-search",
+  },
+  {
+    slug: "vasap-ai-mailguard",
+    name: "Vasap AI MailGuard",
+    tagline:
+      "Camada de IA sobre o IMAP corporativo que detecta phishing, BEC e fraudes brasileiras com LLM.",
+    description:
+      "Serviço que monitora caixas de e-mail via IMAP e classifica mensagens com LLM em português, focado em fraudes brasileiras: boleto adulterado, falsa cobrança fiscal e impersonação de diretoria (BEC). Poller com prefiltro, execução de ações (mover/marcar), emissão de IOCs, alertas em tempo real via WhatsApp (Evolution API), loop de feedback/aprendizado e dashboard web de triagem multi-caixa. Opera em modo shadow por padrão, complementando o antispam existente.",
+    stack: ["Node.js", "IMAP", "OpenAI API", "MySQL", "Express", "Evolution API"],
+    categories: ["ia"],
+    status: "wip",
+    badges: ["Em desenvolvimento", "Privado", "IA Powered"],
+    featured: false,
+    icon: "mail-warning",
+  },
+  // --- PRODUTO / SAAS ---
+  {
+    slug: "sintese-fintech",
+    name: "Síntese Fintech",
+    tagline:
+      "Plataforma B2B de contas a pagar com máquina de estados de pagamentos, filas e conciliação automática.",
+    description:
+      "Aplicação web B2B de contas a pagar operando em modo sandbox/simulação: máquina de estados declarativa de pagamentos com auditoria imutável na mesma transação e idempotência, filas BullMQ encadeadas (envio → retorno → conciliação/baixa) e arquitetura de portas/adaptadores para plugar ERPs e provedores de pagamento. Inclui base de conhecimento RAG da Central de Ajuda Sankhya consultável por CLI com baixo consumo de tokens.",
+    stack: ["Node.js", "Express", "TypeScript", "Prisma", "PostgreSQL", "BullMQ", "Redis", "React 19", "Vite"],
+    categories: ["produto", "sankhya"],
+    status: "wip",
+    badges: ["Em desenvolvimento", "Privado"],
+    github: "https://github.com/phillypmack/sintese-fintech",
+    featured: true,
+    icon: "banknote",
+  },
+  {
+    slug: "devstickers",
+    name: "DevStickers",
+    tagline:
+      "Loja de adesivos DTF-UV para devs com automação de produção por gang sheet contínuo.",
+    description:
+      "E-commerce de adesivos DTF-UV em que o cliente escolhe entre 800+ ícones de tecnologias ou envia a própria arte, vê o adesivo em tamanho real sobre um notebook de 16\" e, ao pagar (Mercado Pago/PIX), o pedido entra num bin-packing automático de folhas A4/A3 — quando a folha enche, ela é fechada e enviada à gráfica com QR e número do pedido ao lado de cada grupo. O motor dtf-engine (cores, sanitização SVG, packing e render da gang sheet) é compartilhado entre o preview do cliente e a geração do arquivo de impressão, com testes golden-file. Evolução comercial do HardSkills DTF Generator.",
+    stack: ["Node.js", "Express", "Prisma", "PostgreSQL", "React", "Vite", "Tailwind", "Mercado Pago"],
+    categories: ["produto"],
+    status: "wip",
+    badges: ["Em desenvolvimento"],
+    featured: false,
+    icon: "shopping-bag",
+  },
+  {
+    slug: "dona-lia-estoque",
+    name: "Dona Lia Estoque",
+    tagline:
+      "Controle de estoque para indústria de alimentos: produtos, contagens por endereço, entradas e saídas.",
+    description:
+      "Sistema web de controle de estoque desenvolvido para a Dona Lia Salgados: cadastro de produtos, categorias, unidades e equivalências, fornecedores, endereços de armazenagem, fluxo de contagens por endereço e movimentações de entrada/saída, com autenticação NextAuth/JWT e deploy dockerizado.",
+    stack: ["Next.js 14", "TypeScript", "Prisma", "NextAuth", "Tailwind", "Zod", "Docker"],
+    categories: ["wms", "produto"],
+    status: "private",
+    badges: ["Privado"],
+    github: "https://github.com/phillypmack/dona-lia-estoque",
+    featured: false,
+    icon: "clipboard-list",
+  },
+  {
+    slug: "baseline-tennis",
+    name: "Baseline",
+    tagline:
+      "Analytics de tênis ATP/WTA com ~361 mil partidas desde 1968: Elo por superfície, head-to-head e rankings.",
+    description:
+      "Plataforma full-stack de análise de tênis sobre os datasets históricos de Jeff Sackmann (1968→2026): dashboard do arquivo, leaderboard de Elo por superfície, perfis de jogador com trajetória de Elo, histórico de ranking e radar de superfície, head-to-head de carreira e módulo live via WebSocket com probabilidade de vitória por Elo. Pipeline de ingestão em Python/pandas com ~5,5 milhões de linhas de ranking e migrações Alembic.",
+    stack: ["Next.js 14", "React", "Recharts", "FastAPI", "PostgreSQL", "Python", "Docker"],
+    categories: ["produto"],
+    status: "private",
+    badges: ["Privado"],
+    github: "https://github.com/phillypmack/baseline-tennis",
+    featured: false,
+    icon: "trophy",
+  },
+  {
+    slug: "price-monitor",
+    name: "Monitor de Preços",
+    tagline:
+      "PWA que monitora todos os produtos de uma loja e avisa por push quando há desconto real contra o histórico.",
+    description:
+      "Monitora o catálogo inteiro de uma loja (descoberta via sitemap/robots.txt confirmada por schema.org/Product), extrai preços em cascata (JSON-LD → microdata → OpenGraph → CSS) sem navegador headless, mantém histórico próprio e dispara Web Push quando o preço cai de verdade — comparando com mediana, média e mínimo histórico, e não com o preço \"riscado\" da loja. Agendamento educado com rate-limit por domínio, ETag/If-Modified-Since, jitter e backoff exponencial.",
+    stack: ["Python", "FastAPI", "SQLAlchemy", "APScheduler", "Web Push", "SQLite", "Docker"],
+    categories: ["produto"],
+    status: "wip",
+    badges: ["Em desenvolvimento"],
+    featured: false,
+    icon: "tag",
+  },
+  {
+    slug: "tether",
+    name: "Tether",
+    tagline:
+      "Controle sessões tmux pelo celular: PWA com terminal xterm.js publicada por túnel Cloudflare efêmero.",
+    description:
+      "CLI/daemon que expõe uma sessão tmux numa PWA mobile protegida por senha, publicada via Cloudflare Tunnel efêmero com TTL configurável. Captura todos os panes via tmux pipe-pane, WebSocket multiplexado por pane com replay buffer, autenticação em três camadas (token de URL + senha bcrypt + cookie JWT httpOnly), teclas especiais no mobile e audit log JSONL. Ideal para acompanhar agentes de IA rodando no desktop a partir do celular.",
+    stack: ["Node.js", "Express", "WebSocket", "xterm.js", "tmux", "Cloudflare Tunnel"],
+    categories: ["produto"],
+    status: "wip",
+    badges: ["Em desenvolvimento"],
+    featured: false,
+    icon: "terminal",
+  },
+  {
+    slug: "robowash-3d",
+    name: "RoboWash 3D",
+    tagline:
+      "Simulador de braço robótico industrial de 5 eixos para lavagem veicular autônoma, com cinemática inversa em Three.js.",
+    description:
+      "Simulação física de um lava-jato 100% robotizado: braço de 5 eixos com cinemática inversa analítica e motores simulados (perfil NEMA 34 closed-loop), perfil de superfície extraído da malha real do veículo (funciona com qualquer GLTF), ciclo automático em 4 fases (pré-lavagem, espuma, enxágue, secagem) com mesa giratória de 360°, sensor ultrassônico por raycasting, anticolisão que trava motores e parada de emergência.",
+    stack: ["JavaScript", "Three.js", "three-mesh-bvh", "Vite", "glTF"],
+    categories: ["ar"],
+    status: "wip",
+    badges: ["Em desenvolvimento", "P&D"],
+    featured: false,
+    icon: "car",
+  },
+  // --- EDUCAÇÃO ---
+  {
+    slug: "autodidata",
+    name: "Autodidata",
+    tagline:
+      "App de ensino de Java do zero ao avançado com maestria por conceito, revisão espaçada SM-2 e editor CodeMirror.",
+    description:
+      "Aplicação web de aprendizado de Java baseada em metodologias comprovadas — worked examples, retrieval practice, mastery learning e revisão espaçada (algoritmo SM-2). Conteúdo pedagógico tipado com 13 módulos, 38 lições e 58 conceitos, editor CodeMirror com validação estrutural de exercícios (sem JVM no browser), sistema de XP/streak/desbloqueio e camada de domínio pura separada da UI, coberta por 85 testes.",
+    stack: ["React 19", "TypeScript", "Vite", "Tailwind 4", "Zustand", "CodeMirror", "Vitest"],
+    categories: ["edu"],
+    status: "wip",
+    badges: ["Em desenvolvimento"],
+    featured: false,
+    icon: "graduation-cap",
+  },
+  {
+    slug: "game-learn",
+    name: "Game Learn",
+    tagline:
+      "Aprenda Java construindo um platformer 2D: o código que você escreve desbloqueia as mecânicas do jogo.",
+    description:
+      "MVP de plataforma educacional em que o aluno escreve código Java num editor ao lado de um action platformer 2D em pixel art gótico — cada lição concluída (validada por testes estilo JUnit) desbloqueia mecânicas e avança a fase. Jogo em Canvas 2D puro, sem dependências externas, com personagem de estados animados e inimigos patrulheiros.",
+    stack: ["JavaScript", "Canvas 2D", "Node.js"],
+    categories: ["edu", "games"],
+    status: "wip",
+    badges: ["Em desenvolvimento", "MVP"],
+    featured: false,
+    icon: "gamepad-2",
+  },
+  {
+    slug: "mentor-senai",
+    name: "Mentor SENAI",
+    tagline:
+      "PWA de estudo contínuo para Engenharia de Software: trilhas, lições e modo foco, instalável e offline.",
+    description:
+      "PWA mobile-first de aprendizado contínuo para o curso de Engenharia de Software do SENAI: trilhas por disciplina, lições estruturadas com conceito, exemplo e diagramas (ex.: transações ACID), modo foco com timer e progresso persistido localmente. Instalável como app com service worker para uso offline.",
+    stack: ["JavaScript", "PWA", "Service Worker", "HTML", "CSS"],
+    categories: ["edu"],
+    status: "wip",
+    badges: ["Em desenvolvimento"],
+    featured: false,
+    icon: "book-open",
+  },
 ];
 
 export const experiments = [
+  "excel-to-mongo-etl",
   "JAVAPOO",
   "java-poo-frontend",
   "pdvpostocombustivel",

@@ -25,6 +25,27 @@ import {
   MapPin,
   LayoutDashboard,
   FolderSync,
+  Swords,
+  Truck,
+  Container,
+  PackageCheck,
+  ScanEye,
+  Store,
+  ScanBarcode,
+  Users,
+  PieChart,
+  FileSearch,
+  MailWarning,
+  Banknote,
+  ShoppingBag,
+  ClipboardList,
+  Trophy,
+  Tag,
+  Terminal,
+  Car,
+  GraduationCap,
+  Gamepad2,
+  BookOpen,
   Github,
   ExternalLink,
   Eye,
@@ -53,6 +74,27 @@ const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
   "map-pin": MapPin,
   "layout-dashboard": LayoutDashboard,
   "folder-sync": FolderSync,
+  swords: Swords,
+  truck: Truck,
+  container: Container,
+  "package-check": PackageCheck,
+  "scan-eye": ScanEye,
+  store: Store,
+  "scan-barcode": ScanBarcode,
+  users: Users,
+  "pie-chart": PieChart,
+  "file-search": FileSearch,
+  "mail-warning": MailWarning,
+  banknote: Banknote,
+  "shopping-bag": ShoppingBag,
+  "clipboard-list": ClipboardList,
+  trophy: Trophy,
+  tag: Tag,
+  terminal: Terminal,
+  car: Car,
+  "graduation-cap": GraduationCap,
+  "gamepad-2": Gamepad2,
+  "book-open": BookOpen,
 }
 
 interface ProjectCardProps {
@@ -149,16 +191,18 @@ export function ProjectCard({
               Preview
             </Button>
           )}
-          <Button variant="outline" size="icon" className="h-8 w-8" asChild>
-            <a
-              href={project.github}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label={`Ver ${project.name} no GitHub`}
-            >
-              <Github className="w-3.5 h-3.5" />
-            </a>
-          </Button>
+          {project.github && (
+            <Button variant="outline" size="icon" className="h-8 w-8" asChild>
+              <a
+                href={project.github}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={`Ver ${project.name} no GitHub`}
+              >
+                <Github className="w-3.5 h-3.5" />
+              </a>
+            </Button>
+          )}
         </div>
       </div>
     </motion.div>
