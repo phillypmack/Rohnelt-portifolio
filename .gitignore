@@ -16,3 +16,5 @@ agent/.env
 node_modules
 .next/
 .DS_Store
+agent/*.log
+tsconfig.tsbuildinfo

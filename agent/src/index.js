@@ -1,3 +1,4 @@
+import "./env.js";
 import chokidar from "chokidar";
 import path from "path";
 import { scanAllProjects } from "./scanner.js";
@@ -117,6 +118,8 @@ async function main() {
   const watcher = chokidar.watch(ROOT, {
     ignored: (filePath) => {
       const base = path.basename(filePath);
+      // logs (inclusive os do próprio agent) não são código — mudança neles não justifica rescan
+      if (base.endsWith(".log")) return true;
       return (
         base === "node_modules" ||
         base === ".git" ||
@@ -128,7 +131,14 @@ async function main() {
         base === "venv" ||
         base === "target" ||
         base === ".turbo" ||
-        base === "coverage"
+        base === "coverage" ||
+        // Windows: junctions de sistema dentro de Documents negam listagem (EPERM)
+        base === "Meus Vídeos" ||
+        base === "Minhas Imagens" ||
+        base === "Minhas Músicas" ||
+        base === "My Videos" ||
+        base === "My Pictures" ||
+        base === "My Music"
       );
     },
     ignoreInitial: true,
