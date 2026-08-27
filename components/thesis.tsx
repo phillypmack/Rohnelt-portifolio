@@ -37,21 +37,18 @@ export function Thesis() {
             {...rise(0.08)}
             className="reveal text-[clamp(2.5rem,6.2vw,4.1rem)] leading-[0.99]"
           >
-            Software em produção, operado por quem escreveu.
+            Softwares, Soluções e Automações.
           </h1>
 
           <p {...rise(0.16)} className="prose-lead reveal">
-            Vinte e três sistemas estão em produção enquanto você lê isto. Catorze
-            respondem na internet pública, a partir de um único servidor que eu
-            administro de ponta a ponta. Nove rodam dentro da rede de uma indústria,
-            onde programam a injeção, vigiam uma instância Oracle e movimentam o
-            estoque de um armazém.
+            Agregando valor ao seu negócio através de tecnologia, seja na nuvem ou em ambiente local.
+            São 23 sistemas em produção, 14 na internet pública e 9 em redes internas TMS, PCP, WMS, MRP,
+            Modelos desenvolvidos testados e validados em produção, integrações com ERPs desenvolvidas
+            para necessidades específicas, Automações de processos repetitivos, Consultoria em tecnologia e sistemas.
           </p>
 
           <p {...rise(0.22)} className="prose-lead reveal">
-            A coluna de status abaixo é uma verificação disparada por esta página, não
-            um print. Se algo estiver fora do ar quando você visitar, vai estar escrito
-            ali.
+            Os sistemas mostrados abaixo estão online e rodando, os status são ao vivo
           </p>
 
           <div {...rise(0.28)} className="reveal mt-1 flex flex-wrap gap-3">
@@ -59,7 +56,7 @@ export function Thesis() {
               href="#frota"
               className="bg-ink px-6 py-3.5 font-mono text-xs tracking-[0.08em] text-paper transition-opacity hover:opacity-85"
             >
-              VER A FROTA
+              SISTEMAS EM PRODUÇÃO
             </a>
             <a
               href="#contato"
@@ -76,9 +73,8 @@ export function Thesis() {
             {figures.map((figure, index) => (
               <div
                 key={figure.label}
-                className={`flex items-baseline justify-between gap-4 border-t border-rule py-4 ${
-                  index === figures.length - 1 ? "border-b" : ""
-                }`}
+                className={`flex items-baseline justify-between gap-4 border-t border-rule py-4 ${index === figures.length - 1 ? "border-b" : ""
+                  }`}
               >
                 <dt className="figure order-1">{figure.value}</dt>
                 <dd className="meta order-2 max-w-[26ch] text-right">{figure.label}</dd>

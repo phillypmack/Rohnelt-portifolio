@@ -35,7 +35,7 @@ export default function OpengraphImage() {
         </div>
 
         <div style={{ display: "flex", fontSize: 76, fontWeight: 800, lineHeight: 1.04, letterSpacing: -2.4, maxWidth: 980 }}>
-          Software em produção, operado por quem escreveu.
+          Softwares, Soluções e Automações.
         </div>
 
         <div style={{ display: "flex", borderTop: "1px solid #CFD5DB", paddingTop: 26, gap: 72 }}>
