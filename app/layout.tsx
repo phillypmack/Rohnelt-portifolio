@@ -42,13 +42,13 @@ export const metadata: Metadata = {
     siteName: "Felipe Rohnelt",
     title: "Felipe Rohnelt — sistemas em produção",
     description:
-      "Software em produção, operado por quem escreveu. A lista ao vivo de tudo que eu mantenho no ar.",
+      "Softwares, Soluções e Automações. A lista ao vivo de tudo que eu mantenho no ar.",
   },
   twitter: {
     card: "summary_large_image",
     title: "Felipe Rohnelt — sistemas em produção",
     description:
-      "Software em produção, operado por quem escreveu.",
+      "Softwares, Soluções e Automações.",
   },
 }
 

@@ -4,7 +4,7 @@ import { counts } from "@/lib/systems"
 
 export const size = { width: 1200, height: 630 }
 export const contentType = "image/png"
-export const alt = "Felipe Rohnelt — software em produção, operado por quem escreveu"
+export const alt = "Felipe Rohnelt — softwares, soluções e automações"
 
 // De propósito só com fonte de sistema: o card tem que renderizar mesmo se a fonte falhar.
 export default function OpengraphImage() {
