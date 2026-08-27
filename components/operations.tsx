@@ -1,64 +1,64 @@
 const GROUPS: { title: string; note: string; items: string[] }[] = [
   {
-    title: "Edge",
-    note: "One host terminates everything.",
+    title: "Borda",
+    note: "Um único host termina tudo.",
     items: [
       "nginx, 19 virtual hosts",
-      "Let's Encrypt, renewed on a timer",
-      "HTTP redirected to HTTPS throughout",
-      "Unknown Host headers dropped, not served",
-      "UFW: 22, 80, 443 and the media ports only",
+      "Let's Encrypt, renovado por timer",
+      "HTTP redirecionado para HTTPS em tudo",
+      "Host desconhecido é descartado, não servido",
+      "UFW: só 22, 80, 443 e as portas de mídia",
     ],
   },
   {
-    title: "Runtime",
-    note: "Whatever suits the service, not one dogma.",
+    title: "Execução",
+    note: "O que servir ao serviço, não um dogma só.",
     items: [
-      "Docker Compose for the multi-container apps",
-      "systemd units for the single binaries",
-      "pm2 where a Node process wants a supervisor",
-      "Isolated JDK containers for untrusted student code",
+      "Docker Compose para as aplicações multi-contêiner",
+      "Unidades systemd para os binários únicos",
+      "pm2 onde um processo Node quer supervisor",
+      "Contêiner JDK isolado para código de aluno",
     ],
   },
   {
-    title: "Data",
-    note: "Eight database instances, each owned by one service.",
+    title: "Dados",
+    note: "Oito instâncias de banco, cada uma de um serviço só.",
     items: [
-      "PostgreSQL, one instance per application",
-      "pgvector for embedding search",
-      "Redis for queues and ephemeral state",
-      "Oracle, on the client side of the fence",
-      "SQLite where a file is genuinely enough",
+      "PostgreSQL, uma instância por aplicação",
+      "pgvector para busca por embedding",
+      "Redis para fila e estado efêmero",
+      "Oracle, do lado do cliente da cerca",
+      "SQLite onde um arquivo realmente basta",
     ],
   },
   {
-    title: "Real time",
-    note: "The parts that cannot be polled.",
+    title: "Tempo real",
+    note: "As partes que não dá para resolver com polling.",
     items: [
-      "LiveKit for consultation video and audio",
-      "WebSockets for play and dispatch",
-      "Whisper for on-host transcription",
-      "Server-authoritative simulation, not client trust",
+      "LiveKit para o vídeo e o áudio da consulta",
+      "WebSocket para partida e despacho",
+      "Whisper transcrevendo no próprio host",
+      "Simulação autoritativa no servidor, sem confiar no cliente",
     ],
   },
   {
-    title: "Languages",
-    note: "Chosen per problem.",
+    title: "Linguagens",
+    note: "Escolhidas por problema.",
     items: [
-      "TypeScript and Next.js for most product surfaces",
-      "Python with FastAPI and Flask against Oracle",
-      "Java and Spring Boot",
-      "SQL that is written, not generated blindly",
+      "TypeScript e Next.js na maioria das interfaces",
+      "Python com FastAPI e Flask contra o Oracle",
+      "Java e Spring Boot",
+      "SQL escrito, não gerado às cegas",
     ],
   },
   {
-    title: "Practice",
-    note: "What keeps it up when I am asleep.",
+    title: "Prática",
+    note: "O que mantém tudo de pé enquanto eu durmo.",
     items: [
-      "Deploy scripts per service, not manual steps",
-      "Scheduled backups with restores actually tested",
-      "Host hardening scripts kept in version control",
-      "Alerting that escalates until a human reads it",
+      "Script de deploy por serviço, não passo manual",
+      "Backup agendado com restauração testada de verdade",
+      "Scripts de hardening do host versionados",
+      "Alerta que escala até um humano ler",
     ],
   },
 ]
@@ -66,16 +66,16 @@ const GROUPS: { title: string; note: string; items: string[] }[] = [
 export function Operations() {
   return (
     <section
-      id="operations"
+      id="operacao"
       className="mx-auto max-w-[1440px] px-6 py-20 sm:px-10 sm:py-28 lg:px-14"
     >
       <div className="flex flex-col gap-3 border-b border-ink pb-7">
-        <p className="label">Section 03</p>
-        <h2 className="text-[clamp(1.9rem,3.6vw,2.75rem)]">Operations</h2>
+        <p className="label">Seção 03</p>
+        <h2 className="text-[clamp(1.9rem,3.6vw,2.75rem)]">Operação</h2>
         <p className="prose-body">
-          Most portfolios stop at the interface. This is the other half of the job: what
-          the fourteen public services actually run on, and what keeps them answering
-          between deploys.
+          A maioria dos portfólios para na interface. Esta é a outra metade do
+          trabalho: sobre o que os catorze serviços públicos de fato rodam, e o que os
+          mantém respondendo entre um deploy e outro.
         </p>
       </div>
 

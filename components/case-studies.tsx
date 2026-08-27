@@ -34,7 +34,7 @@ function Plate({
         />
       </div>
       <figcaption className="meta max-w-[68ch]">
-        <span className="text-ink">Plate {String(index + 1).padStart(2, "0")}</span>
+        <span className="text-ink">Fig. {String(index + 1).padStart(2, "0")}</span>
         {"  —  "}
         {shot.caption}
       </figcaption>
@@ -50,13 +50,13 @@ function Study({ system, ordinal }: { system: System; ordinal: number }) {
       <div className="flex flex-col gap-5 border-b border-ink pb-5 lg:flex-row lg:items-end lg:justify-between">
         <div className="flex flex-col gap-3">
           <p className="label">
-            Case study {String(ordinal).padStart(2, "0")}
+            Estudo de caso {String(ordinal).padStart(2, "0")}
           </p>
           <h3 className="text-[clamp(1.7rem,3.2vw,2.4rem)] leading-none">{system.name}</h3>
         </div>
         <dl className="flex flex-wrap gap-x-9 gap-y-3">
           <div className="flex flex-col gap-1.5">
-            <dt className="label !text-[10px]">Runs on</dt>
+            <dt className="label !text-[10px]">Onde roda</dt>
             <dd
               className="font-mono text-[13px]"
               style={{
@@ -70,7 +70,7 @@ function Study({ system, ordinal }: { system: System; ordinal: number }) {
             </dd>
           </div>
           <div className="flex flex-col gap-1.5">
-            <dt className="label !text-[10px]">Since</dt>
+            <dt className="label !text-[10px]">Desde</dt>
             <dd className="font-mono text-[13px] text-ink">{formatSince(system.since)}</dd>
           </div>
           <div className="flex flex-col gap-1.5">
@@ -82,13 +82,13 @@ function Study({ system, ordinal }: { system: System; ordinal: number }) {
 
       <div className="grid grid-cols-1 gap-x-8 gap-y-10 pt-9 lg:grid-cols-12">
         <div className="flex flex-col gap-4 lg:col-span-7">
-          <p className="label">What it is for</p>
+          <p className="label">Para que serve</p>
           <p className="prose-body">{system.detail}</p>
         </div>
 
         {system.facts && (
           <div className="lg:col-span-4 lg:col-start-9">
-            <p className="label pb-3.5">Readings from the running system</p>
+            <p className="label pb-3.5">Leituras do sistema rodando</p>
             <dl className="flex flex-col">
               {system.facts.map((fact, index) => (
                 <div
@@ -131,16 +131,16 @@ function Study({ system, ordinal }: { system: System; ordinal: number }) {
 export function CaseStudies() {
   return (
     <section
-      id="case-studies"
+      id="estudos"
       className="mx-auto max-w-[1440px] px-6 py-20 sm:px-10 sm:py-28 lg:px-14"
     >
       <div className="flex flex-col gap-3 pb-4">
-        <p className="label">Section 02</p>
-        <h2 className="text-[clamp(1.9rem,3.6vw,2.75rem)]">Four of them, up close</h2>
+        <p className="label">Seção 02</p>
+        <h2 className="text-[clamp(1.9rem,3.6vw,2.75rem)]">Quatro deles, de perto</h2>
         <p className="prose-body">
-          These four run inside a manufacturer&rsquo;s network, so there is no link to
-          give you. The screenshots are the evidence instead, and every figure beside
-          them is a reading off the screen shown.
+          Estes quatro rodam dentro da rede de uma indústria, então não há link para
+          te dar. As telas são a evidência no lugar dele, e cada número ao lado é uma
+          leitura tirada da própria tela mostrada.
         </p>
       </div>
 

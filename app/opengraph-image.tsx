@@ -4,14 +4,14 @@ import { counts } from "@/lib/systems"
 
 export const size = { width: 1200, height: 630 }
 export const contentType = "image/png"
-export const alt = "Felipe Rohnelt — software in production, operated by the person who wrote it"
+export const alt = "Felipe Rohnelt — software em produção, operado por quem escreveu"
 
-// Deliberately system-font only: the card must render even if a font fetch fails.
+// De propósito só com fonte de sistema: o card tem que renderizar mesmo se a fonte falhar.
 export default function OpengraphImage() {
   const figures = [
-    [String(counts.total), "systems in production"],
-    [String(counts.vps), "public endpoints"],
-    [String(counts.onPrem), "inside client networks"],
+    [String(counts.total), "sistemas em produção"],
+    [String(counts.vps), "endpoints públicos"],
+    [String(counts.onPrem), "na rede de clientes"],
   ]
 
   return new ImageResponse(
@@ -35,7 +35,7 @@ export default function OpengraphImage() {
         </div>
 
         <div style={{ display: "flex", fontSize: 76, fontWeight: 800, lineHeight: 1.04, letterSpacing: -2.4, maxWidth: 980 }}>
-          Software in production, operated by the person who wrote it.
+          Software em produção, operado por quem escreveu.
         </div>
 
         <div style={{ display: "flex", borderTop: "1px solid #CFD5DB", paddingTop: 26, gap: 72 }}>

@@ -12,7 +12,7 @@ import {
   type System,
 } from "@/lib/systems"
 
-/* The one place the column geometry is defined. */
+/* O único lugar onde a geometria das colunas é definida. */
 const GRID =
   "grid grid-cols-[84px_minmax(0,1fr)] gap-x-5 gap-y-2 lg:grid-cols-[84px_200px_minmax(0,1fr)_108px_220px_112px] lg:gap-y-0"
 
@@ -58,7 +58,7 @@ function Detail({ system }: { system: System }) {
                 rel="noopener noreferrer"
                 className="bg-ink px-4 py-2.5 font-mono text-[11px] tracking-[0.08em] text-paper transition-opacity hover:opacity-85"
               >
-                OPEN {system.url.replace(/^https?:\/\//, "")}
+                ABRIR {system.url.replace(/^https?:\/\//, "")}
               </a>
             )}
             {system.repo && (
@@ -68,7 +68,7 @@ function Detail({ system }: { system: System }) {
                 rel="noopener noreferrer"
                 className="border border-rule px-4 py-2.5 font-mono text-[11px] tracking-[0.08em] text-muted transition-colors hover:border-ink hover:text-ink"
               >
-                SOURCE
+                CÓDIGO
               </a>
             )}
             {system.caseStudy && (
@@ -76,12 +76,12 @@ function Detail({ system }: { system: System }) {
                 href={`#case-${system.slug}`}
                 className="border border-rule px-4 py-2.5 font-mono text-[11px] tracking-[0.08em] text-muted transition-colors hover:border-ink hover:text-ink"
               >
-                CASE STUDY
+                ESTUDO DE CASO
               </a>
             )}
             {system.runtime === "on-prem" && !system.url && (
               <span className="px-1 py-2.5 font-mono text-[11px] text-muted">
-                No public link — this one runs inside a client network.
+                Sem link público — este roda dentro da rede do cliente.
               </span>
             )}
           </div>
@@ -127,49 +127,49 @@ export function FleetLedger() {
     [runtime, field],
   )
 
-  const checkedLabel = new Date(checkedAt).toLocaleString("en-GB", {
+  const checkedLabel = new Date(checkedAt).toLocaleString("pt-BR", {
     day: "2-digit",
     month: "short",
     year: "numeric",
     hour: "2-digit",
     minute: "2-digit",
-    timeZone: "UTC",
+    timeZone: "America/Sao_Paulo",
   })
 
   return (
-    <section id="fleet" className="mx-auto max-w-[1440px] px-6 py-20 sm:px-10 sm:py-28 lg:px-14">
+    <section id="frota" className="mx-auto max-w-[1440px] px-6 py-20 sm:px-10 sm:py-28 lg:px-14">
       <div className="flex flex-col gap-3 pb-7">
-        <p className="label">Section 01</p>
-        <h2 className="text-[clamp(1.9rem,3.6vw,2.75rem)]">The fleet</h2>
+        <p className="label">Seção 01</p>
+        <h2 className="text-[clamp(1.9rem,3.6vw,2.75rem)]">A frota</h2>
         <p className="prose-body">
-          Every system I have in production, ordered by the month it went into service.
-          Public ones are probed from this page; the ones inside a client network are
-          marked and cannot be linked.
+          Todo sistema que tenho em produção, na ordem em que entrou no ar. Os
+          públicos são verificados a partir desta página; os que rodam dentro da rede
+          de um cliente estão marcados e não podem ser linkados.
         </p>
       </div>
 
-      {/* Filters get their own band so they never crowd the heading. */}
+      {/* Os filtros ganham uma faixa própria para nunca espremerem o título. */}
       <div className="flex flex-col gap-4 border-t border-rule py-5 lg:flex-row lg:items-start lg:gap-12">
         <div className="flex flex-col gap-2.5 lg:flex-row lg:items-center lg:gap-4">
-          <span className="label !text-[10px] lg:w-14">Where</span>
+          <span className="label !text-[10px] lg:w-14">Onde</span>
           <div className="flex flex-wrap gap-2">
             <Chip active={runtime === "all"} onClick={() => setRuntime("all")}>
-              ALL {ledger.length}
+              TODOS {ledger.length}
             </Chip>
             <Chip active={runtime === "vps"} onClick={() => setRuntime("vps")}>
-              MY SERVER {ledger.filter((s) => s.runtime === "vps").length}
+              MEU SERVIDOR {ledger.filter((s) => s.runtime === "vps").length}
             </Chip>
             <Chip active={runtime === "on-prem"} onClick={() => setRuntime("on-prem")}>
-              CLIENT NETWORK {ledger.filter((s) => s.runtime === "on-prem").length}
+              REDE DO CLIENTE {ledger.filter((s) => s.runtime === "on-prem").length}
             </Chip>
           </div>
         </div>
 
         <div className="flex flex-col gap-2.5 lg:flex-1 lg:flex-row lg:items-center lg:gap-4">
-          <span className="label !text-[10px] lg:w-14">Field</span>
+          <span className="label !text-[10px] lg:w-14">Área</span>
           <div className="flex flex-wrap gap-2">
             <Chip active={field === "all"} onClick={() => setField("all")}>
-              ANY
+              TODAS
             </Chip>
             {fields.map((f) => (
               <Chip key={f} active={field === f} onClick={() => setField(f)}>
@@ -180,12 +180,12 @@ export function FleetLedger() {
         </div>
       </div>
 
-      {/* Column heads — desktop only; on small screens each row labels itself. */}
+      {/* Cabeçalhos — só no desktop; no celular cada linha se rotula sozinha. */}
       <div className={`${GRID} hidden border-t border-ink pb-2.5 pt-3 lg:grid`}>
-        <span className="label !text-[10px] !tracking-[0.14em]">Since</span>
-        <span className="label !text-[10px] !tracking-[0.14em]">System</span>
-        <span className="label !text-[10px] !tracking-[0.14em]">What it does</span>
-        <span className="label !text-[10px] !tracking-[0.14em]">Runs on</span>
+        <span className="label !text-[10px] !tracking-[0.14em]">Desde</span>
+        <span className="label !text-[10px] !tracking-[0.14em]">Sistema</span>
+        <span className="label !text-[10px] !tracking-[0.14em]">O que faz</span>
+        <span className="label !text-[10px] !tracking-[0.14em]">Onde roda</span>
         <span className="label !text-[10px] !tracking-[0.14em]">Stack</span>
         <span className="label !text-[10px] !tracking-[0.14em] text-right">Status</span>
       </div>
@@ -213,7 +213,7 @@ export function FleetLedger() {
                 </span>
                 <span className="prose-row col-span-2 lg:col-span-1">{system.summary}</span>
                 <span className="meta hidden lg:block">
-                  {system.runtime === "vps" ? "my server" : "client net"}
+                  {system.runtime === "vps" ? "meu servidor" : "rede cliente"}
                 </span>
                 <span className="meta hidden truncate lg:block" title={system.stack.join(" · ")}>
                   {system.stack.join(" · ")}
@@ -231,10 +231,10 @@ export function FleetLedger() {
       <div className="flex flex-col gap-1 pt-4 sm:flex-row sm:justify-between">
         <p className="meta">
           {rows.length === ledger.length
-            ? "Probed every 60 seconds from the page you are reading."
-            : `Showing ${rows.length} of ${ledger.length}.`}
+            ? "Verificado a cada 60 segundos a partir desta página."
+            : `Mostrando ${rows.length} de ${ledger.length}.`}
         </p>
-        <p className="meta">Last check {checkedLabel} UTC</p>
+        <p className="meta">Última verificação {checkedLabel}</p>
       </div>
     </section>
   )

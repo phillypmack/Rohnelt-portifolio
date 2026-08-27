@@ -6,18 +6,18 @@ import { useFleet } from "@/components/fleet-provider"
 import { StatusDot } from "@/components/status"
 
 const NAV = [
-  { href: "#fleet", label: "Fleet" },
-  { href: "#case-studies", label: "Case studies" },
-  { href: "#operations", label: "Operations" },
-  { href: "#contact", label: "Contact" },
+  { href: "#frota", label: "Frota" },
+  { href: "#estudos", label: "Estudos de caso" },
+  { href: "#operacao", label: "Operação" },
+  { href: "#contato", label: "Contato" },
 ]
 
 const PRESENCE_MAX_AGE_MS = 24 * 60 * 60 * 1000
 
 /**
- * The line-counting agent on my machine reports whether I am at the keyboard.
- * It is only shown while the report is fresh — a stale heartbeat asserting
- * "coding now" would be the page telling its first lie.
+ * O agente que conta linhas na minha máquina informa se estou no teclado. Só
+ * aparece enquanto o dado está fresco — um heartbeat velho afirmando "codando
+ * agora" seria a primeira mentira da página.
  */
 function useAtKeyboard(): boolean {
   const [atKeyboard, setAtKeyboard] = useState(false)
@@ -36,7 +36,7 @@ function useAtKeyboard(): boolean {
           Date.now() - new Date(lastUpdate).getTime() < PRESENCE_MAX_AGE_MS
         if (!cancelled) setAtKeyboard(Boolean(fresh && stats.presence.ideRunning))
       } catch {
-        // Absence of the signal is the correct default.
+        // A ausência do sinal é o padrão correto.
       }
     }
 
@@ -66,7 +66,7 @@ export function Masthead() {
           Felipe Rohnelt
         </a>
 
-        <nav className="hidden gap-7 md:flex" aria-label="Sections">
+        <nav className="hidden gap-7 md:flex" aria-label="Seções">
           {NAV.map((item) => (
             <a
               key={item.href}
@@ -80,7 +80,7 @@ export function Masthead() {
 
         <div className="flex shrink-0 items-center gap-2">
           {atKeyboard && (
-            <span className="label hidden lg:inline">at the keyboard &nbsp;/&nbsp;</span>
+            <span className="label hidden lg:inline">no teclado &nbsp;/&nbsp;</span>
           )}
           <StatusDot kind={allUp ? "live" : "down"} />
           <span
@@ -88,7 +88,7 @@ export function Masthead() {
             style={{ color: allUp ? "var(--color-live)" : "var(--color-down)" }}
           >
             {up}/{probed}
-            <span className="hidden sm:inline"> RESPONDING</span>
+            <span className="hidden sm:inline"> RESPONDENDO</span>
           </span>
         </div>
       </div>

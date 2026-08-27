@@ -30,25 +30,25 @@ const siteUrl = "https://rohnelt.dev"
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "Felipe Rohnelt — production systems",
+    default: "Felipe Rohnelt — sistemas em produção",
     template: "%s — Felipe Rohnelt",
   },
   description:
-    "Twenty-three systems in production: ERP and manufacturing software running inside a client network, and fourteen public services on a server I administer end to end.",
+    "Vinte e três sistemas em produção: software de ERP e de indústria rodando dentro da rede de clientes, e catorze serviços públicos num servidor que eu administro de ponta a ponta.",
   authors: [{ name: "Felipe Rohnelt" }],
   openGraph: {
     type: "website",
     url: siteUrl,
     siteName: "Felipe Rohnelt",
-    title: "Felipe Rohnelt — production systems",
+    title: "Felipe Rohnelt — sistemas em produção",
     description:
-      "Software in production, operated by the person who wrote it. A live roster of every system I run.",
+      "Software em produção, operado por quem escreveu. A lista ao vivo de tudo que eu mantenho no ar.",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Felipe Rohnelt — production systems",
+    title: "Felipe Rohnelt — sistemas em produção",
     description:
-      "Software in production, operated by the person who wrote it.",
+      "Software em produção, operado por quem escreveu.",
   },
 }
 
@@ -57,7 +57,7 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html
-      lang="en"
+      lang="pt-BR"
       className={`${archivo.variable} ${sourceSerif.variable} ${plexMono.variable}`}
     >
       <body>

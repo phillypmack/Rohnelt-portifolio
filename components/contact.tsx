@@ -1,6 +1,6 @@
 const ROUTES = [
   {
-    label: "Email",
+    label: "E-mail",
     value: "feliperohneltrds@gmail.com",
     href: "mailto:feliperohneltrds@gmail.com",
   },
@@ -19,19 +19,19 @@ const ROUTES = [
 export function Contact() {
   return (
     <section
-      id="contact"
+      id="contato"
       className="mx-auto max-w-[1440px] px-6 py-20 sm:px-10 sm:py-28 lg:px-14"
     >
       <div className="grid grid-cols-1 gap-x-8 gap-y-10 lg:grid-cols-12">
         <div className="flex flex-col gap-4 lg:col-span-6">
-          <p className="label">Section 04</p>
+          <p className="label">Seção 04</p>
           <h2 className="text-[clamp(1.9rem,3.6vw,2.75rem)]">
-            If you need one of these built, or kept running.
+            Se você precisa de um destes construído — ou mantido de pé.
           </h2>
           <p className="prose-body">
-            I take on ERP and manufacturing integration work, and I build and operate
-            products end to end. Tell me what the system has to do and where it has to
-            run, and I will tell you what it takes.
+            Pego trabalho de integração com ERP e sistemas para indústria, e construo
+            e opero produtos de ponta a ponta. Me diga o que o sistema precisa fazer e
+            onde precisa rodar, que eu digo o que isso exige.
           </p>
         </div>
 
@@ -63,10 +63,10 @@ export function Footer() {
   return (
     <footer className="border-t border-rule">
       <div className="mx-auto flex max-w-[1440px] flex-col gap-2 px-6 py-8 sm:flex-row sm:justify-between sm:px-10 lg:px-14">
-        <p className="meta">Felipe Rohnelt — Goiás, Brazil</p>
+        <p className="meta">Felipe Rohnelt — Goiás, Brasil</p>
         <p className="meta">
-          Built and operated by the person it describes. Running on the server it
-          documents.
+          Construído e operado por quem ele descreve. Rodando no servidor que ele
+          documenta.
         </p>
       </div>
     </footer>

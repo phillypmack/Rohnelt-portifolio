@@ -8,8 +8,8 @@ import { Thesis } from "@/components/thesis"
 import { getFleetReport } from "@/lib/fleet"
 
 export default async function Home() {
-  // Probed on the server so the ledger arrives already true, with no flicker
-  // and no layout that depends on JavaScript having run.
+  // Verificado no servidor para o ledger já chegar verdadeiro, sem piscar e sem
+  // layout que dependa do JavaScript ter rodado.
   const report = await getFleetReport()
 
   return (

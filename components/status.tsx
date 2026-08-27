@@ -5,18 +5,18 @@ export type StatusKind = "live" | "internal" | "down"
 const tone: Record<StatusKind, { color: string; word: string; title: string }> = {
   live: {
     color: "var(--color-live)",
-    word: "LIVE",
-    title: "Answered the last probe",
+    word: "NO AR",
+    title: "Respondeu à última verificação",
   },
   internal: {
     color: "var(--color-internal)",
-    word: "INTERNAL",
-    title: "Runs inside a client network and cannot be probed from here",
+    word: "INTERNO",
+    title: "Roda dentro da rede de um cliente e não pode ser verificado daqui",
   },
   down: {
     color: "var(--color-down)",
-    word: "DOWN",
-    title: "Did not answer the last probe",
+    word: "FORA",
+    title: "Não respondeu à última verificação",
   },
 }
 
@@ -26,8 +26,8 @@ export function statusOf(runtime: Runtime, up: boolean | undefined): StatusKind 
 }
 
 /**
- * The dot is the only place colour appears on this page, and it always means
- * the same thing: what state a machine is in right now.
+ * O ponto é o único lugar onde aparece cor nesta página, e ele sempre significa
+ * a mesma coisa: em que estado uma máquina está agora.
  */
 export function StatusDot({ kind }: { kind: StatusKind }) {
   return (

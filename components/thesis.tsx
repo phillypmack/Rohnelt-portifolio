@@ -1,6 +1,6 @@
 import { counts, formatSince, systems } from "@/lib/systems"
 
-/** The most recent month anything shipped, and how much shipped in it. */
+/** O mês mais recente em que algo subiu, e quanto subiu nele. */
 function latestBurst() {
   const latest = systems.reduce((a, s) => (s.since > a ? s.since : a), "")
   return {
@@ -13,63 +13,65 @@ export function Thesis() {
   const burst = latestBurst()
 
   const figures = [
-    { value: String(counts.total), label: "systems in production" },
-    { value: String(counts.vps), label: "public endpoints" },
-    { value: String(counts.onPrem), label: "inside client networks" },
-    { value: String(burst.count), label: `shipped in ${burst.month}` },
+    { value: String(counts.total), label: "sistemas em produção" },
+    { value: String(counts.vps), label: "endpoints públicos" },
+    { value: String(counts.onPrem), label: "na rede de clientes" },
+    { value: String(burst.count), label: `subiram em ${burst.month}` },
   ]
 
-  /** Staggered page-load reveal, driven entirely by CSS. */
+  /** Entrada escalonada da página, feita só com CSS. */
   const rise = (delay: number) => ({
     className: "reveal",
     style: { animationDelay: `${delay}s` },
   })
 
   return (
-    <section id="top" className="mx-auto max-w-[1440px] px-6 pt-16 pb-4 sm:px-10 sm:pt-24 lg:px-14">
+    <section id="topo" className="mx-auto max-w-[1440px] px-6 pt-16 pb-4 sm:px-10 sm:pt-24 lg:px-14">
       <div className="grid grid-cols-1 gap-x-8 gap-y-14 lg:grid-cols-12">
         <div className="flex flex-col gap-7 lg:col-span-7">
           <p {...rise(0)} className="label reveal">
-            Systems engineer &nbsp;/&nbsp; Goiás, Brazil
+            Engenheiro de sistemas &nbsp;/&nbsp; Goiás, Brasil
           </p>
 
           <h1
             {...rise(0.08)}
             className="reveal text-[clamp(2.5rem,6.2vw,4.1rem)] leading-[0.99]"
           >
-            Software in production, operated by the person who wrote it.
+            Software em produção, operado por quem escreveu.
           </h1>
 
           <p {...rise(0.16)} className="prose-lead reveal">
-            Twenty-three systems are in production as you read this. Fourteen answer on
-            the public internet from a single server I administer end to end. Nine run
-            inside a manufacturer&rsquo;s network, where they schedule injection-moulding
-            production, watch an Oracle instance and move stock through a warehouse.
+            Vinte e três sistemas estão em produção enquanto você lê isto. Catorze
+            respondem na internet pública, a partir de um único servidor que eu
+            administro de ponta a ponta. Nove rodam dentro da rede de uma indústria,
+            onde programam a injeção, vigiam uma instância Oracle e movimentam o
+            estoque de um armazém.
           </p>
 
           <p {...rise(0.22)} className="prose-lead reveal">
-            The status column below is a probe run from this page, not a screenshot. If
-            something is down when you visit, it will say so.
+            A coluna de status abaixo é uma verificação disparada por esta página, não
+            um print. Se algo estiver fora do ar quando você visitar, vai estar escrito
+            ali.
           </p>
 
           <div {...rise(0.28)} className="reveal mt-1 flex flex-wrap gap-3">
             <a
-              href="#fleet"
+              href="#frota"
               className="bg-ink px-6 py-3.5 font-mono text-xs tracking-[0.08em] text-paper transition-opacity hover:opacity-85"
             >
-              READ THE FLEET
+              VER A FROTA
             </a>
             <a
-              href="#contact"
+              href="#contato"
               className="border border-ink px-6 py-3.5 font-mono text-xs tracking-[0.08em] text-ink transition-colors hover:bg-ink hover:text-paper"
             >
-              GET IN TOUCH
+              FALAR COMIGO
             </a>
           </div>
         </div>
 
         <div {...rise(0.34)} className="reveal lg:col-span-4 lg:col-start-9">
-          <p className="label pb-3.5">At a glance</p>
+          <p className="label pb-3.5">Em números</p>
           <dl className="flex flex-col">
             {figures.map((figure, index) => (
               <div
