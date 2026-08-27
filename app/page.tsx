@@ -1,25 +1,28 @@
-import { Navigation } from "@/components/navigation"
-import { Hero } from "@/components/hero"
-import { About } from "@/components/about"
-import { Projects } from "@/components/projects"
-import { Experiments } from "@/components/experiments"
-import { TechStack } from "@/components/tech-stack"
-import { Certificates } from "@/components/certificates"
-import { Contact } from "@/components/contact"
-import { Footer } from "@/components/footer"
+import { CaseStudies } from "@/components/case-studies"
+import { Contact, Footer } from "@/components/contact"
+import { FleetLedger } from "@/components/fleet-ledger"
+import { FleetProvider } from "@/components/fleet-provider"
+import { Masthead } from "@/components/masthead"
+import { Operations } from "@/components/operations"
+import { Thesis } from "@/components/thesis"
+import { getFleetReport } from "@/lib/fleet"
 
-export default function Home() {
+export default async function Home() {
+  // Probed on the server so the ledger arrives already true, with no flicker
+  // and no layout that depends on JavaScript having run.
+  const report = await getFleetReport()
+
   return (
-    <main className="min-h-screen bg-background">
-      <Navigation />
-      <Hero />
-      <About />
-      <Projects />
-      <Experiments />
-      <TechStack />
-      <Certificates />
-      <Contact />
+    <FleetProvider initial={report}>
+      <Masthead />
+      <main>
+        <Thesis />
+        <FleetLedger />
+        <CaseStudies />
+        <Operations />
+        <Contact />
+      </main>
       <Footer />
-    </main>
+    </FleetProvider>
   )
 }
