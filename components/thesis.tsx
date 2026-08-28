@@ -42,9 +42,9 @@ export function Thesis() {
 
           <p {...rise(0.16)} className="prose-lead reveal">
             Agregando valor ao seu negócio através de tecnologia, seja em nuvem ou em ambiente local.
-            São 23 sistemas em produção, sendo 14 na internet e 9 em redes internas TMS, MPS, WMS, MRP,
-            modelos desenvolvidos, testados e validados em produção, integrações com ERPs desenvolvidas
-            para necessidades específicas, automações de processos, consultoria em tecnologia e sistemas.
+            São 23 sistemas em produção, sendo 14 na internet e 9 em redes internas softwares classificados como
+            MPS, MRP, TMS, WMS. Modelos desenvolvidos, testados e validados em produção, integrações com ERPs
+            desenvolvidas para necessidades específicas, automações de processos, consultoria em tecnologia e sistemas.
           </p>
 
           <p {...rise(0.22)} className="prose-lead reveal">
