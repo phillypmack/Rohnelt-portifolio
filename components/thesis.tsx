@@ -30,7 +30,7 @@ export function Thesis() {
       <div className="grid grid-cols-1 gap-x-8 gap-y-14 lg:grid-cols-12">
         <div className="flex flex-col gap-7 lg:col-span-7">
           <p {...rise(0)} className="label reveal">
-            Engenheiro de sistemas &nbsp;/&nbsp; Goiás, Brasil
+            Engenheiro de Software &nbsp;/&nbsp; Goiás, Brasil
           </p>
 
           <h1
@@ -41,10 +41,10 @@ export function Thesis() {
           </h1>
 
           <p {...rise(0.16)} className="prose-lead reveal">
-            Agregando valor ao seu negócio através de tecnologia, seja na nuvem ou em ambiente local.
-            São 23 sistemas em produção, 14 na internet pública e 9 em redes internas TMS, MPS, WMS, MRP,
-            Modelos desenvolvidos testados e validados em produção, integrações com ERPs desenvolvidas
-            para necessidades específicas, automações de processos, Consultoria em tecnologia e sistemas.
+            Agregando valor ao seu negócio através de tecnologia, seja em nuvem ou em ambiente local.
+            São 23 sistemas em produção, sendo 14 na internet e 9 em redes internas TMS, MPS, WMS, MRP,
+            modelos desenvolvidos, testados e validados em produção, integrações com ERPs desenvolvidas
+            para necessidades específicas, automações de processos, consultoria em tecnologia e sistemas.
           </p>
 
           <p {...rise(0.22)} className="prose-lead reveal">
